@@ -3,7 +3,7 @@
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
     <title>게시판</title>
-    <link rel="stylesheet" th:href="@{https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css}"/>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css"/>
 </head>
 <body>
 
@@ -14,18 +14,18 @@
         <br/>
         <input id="board_idx" type="hidden" th:value="${board?.idx}"/>
         <table class="table">
-            <tr>
-                <th style="padding:13px 0 0 15px">게시판 선택</th>
-                <td>
-                    <div class="pull-left">
-                        <select class="form-control input-sm" id="board_type">
-                            <option>--분류--</option>
-                            <option th:value="notice" th:selected="${board?.boardType}">공지사항</option>
-                            <option th:value="free" th:selected="${board?.boardType}">자유게시판</option>
-                        </select>
-                    </div>
-                </td>
-            </tr>
+<!--            <tr>-->
+<!--                <th style="padding:13px 0 0 15px">게시판 선택</th>-->
+<!--                <td>-->
+<!--                    <div class="pull-left">-->
+<!--                        <select class="form-control input-sm" id="board_type">-->
+<!--                            <option>&#45;&#45;분류&#45;&#45;</option>-->
+<!--                            <option th:value="notice" th:selected="${board?.boardType}">공지사항</option>-->
+<!--                            <option th:value="free" th:selected="${board?.boardType}">자유게시판</option>-->
+<!--                        </select>-->
+<!--                    </div>-->
+<!--                </td>-->
+<!--            </tr>-->
             <tr>
                 <th style="padding:13px 0 0 15px;">제목</th>
                 <td><input id="board_title" type="text" class="col-md-1 form-control input-sm" th:value="${board?.title}"/></td>

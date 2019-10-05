@@ -3,7 +3,7 @@
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
     <title>게시판</title>
-    <link rel="stylesheet" th:href="@{https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css}"/>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css"/>
 </head>
 <body>
 <div class="container">
@@ -19,7 +19,6 @@
             <thead>
             <tr>
                 <th class="col-md-1">#</th>
-                <th class="col-md-2">서비스 분류</th>
                 <th class="col-md-5">제목</th>
                 <th class="col-md-2">작성 날짜</th>
                 <th class="col-md-2">수정 날짜</th>
@@ -28,7 +27,6 @@
             <tbody>
             <tr th:each="board : ${boardList}">
                 <td th:text="${board.idx}"></td>
-                <td th:text="${board.boardType.value}"></td>
                 <td><a th:href="'/board?idx='+${board.idx}" th:text="${board.title}"></a></td>
                 <td th:text="${#temporals.format(board.createdDate,'yyyy-MM-dd HH:mm')}"></td>
                 <td th:text="${#temporals.format(board.updatedDate,'yyyy-MM-dd HH:mm')}"></td>

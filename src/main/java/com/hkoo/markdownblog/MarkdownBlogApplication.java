@@ -19,29 +19,26 @@ public class MarkdownBlogApplication {
         SpringApplication.run(MarkdownBlogApplication.class, args);
     }
 
+    @Bean
+    public CommandLineRunner runner(UserRepository userRepository, BoardRepository boardRepository) throws Exception {
+        return (args) -> {
+            User user = userRepository.save(User.builder()
+                    .name("havi")
+                    .password("test")
+                    .email("havi@gmail.com")
+                    .createdDate(LocalDateTime.now())
+                    .build());
 
-
-
-//    @Bean
-//    public CommandLineRunner runner(UserRepository userRepository, BoardRepository boardRepository) throws Exception {
-//        return (args) -> {
-//            User user = userRepository.save(User.builder()
-//                    .name("havi")
-//                    .password("test")
-//                    .email("havi@gmail.com")
-//                    .createdDate(LocalDateTime.now())
-//                    .build());
-//
-//            IntStream.rangeClosed(1, 200).forEach(index ->
-//                    boardRepository.save(Board.builder()
-//                            .title("게시글"+index)
-//                            .subTitle("순서"+index)
-//                            .content("컨텐츠")
-//                            .createdDate(LocalDateTime.now())
-//                            .updatedDate(LocalDateTime.now())
-//                            .user(user).build())
-//            );
-//        };
-//    }
+            IntStream.rangeClosed(1, 200).forEach(index ->
+                    boardRepository.save(Board.builder()
+                            .title("게시글"+index)
+                            .subTitle("순서"+index)
+                            .content("컨텐츠")
+                            .createdDate(LocalDateTime.now())
+                            .updatedDate(LocalDateTime.now())
+                            .user(user).build())
+            );
+        };
+    }
 
 }
