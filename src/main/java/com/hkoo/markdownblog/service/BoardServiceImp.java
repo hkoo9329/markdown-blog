@@ -17,7 +17,7 @@ public class BoardServiceImp implements BoardService{
     @Override
     public Page<Board> findBoardList(Pageable pageable) {
         pageable = PageRequest.of(pageable.getPageNumber() <= 0 ? 0 : pageable.getPageNumber() -1 ,
-                pageable.getPageSize(), Sort.by(Sort.Direction.DESC, "createdDate"));
+                pageable.getPageSize());
         return boardRepository.findAll(pageable);
     }
 
