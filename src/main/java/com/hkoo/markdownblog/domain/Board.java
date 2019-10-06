@@ -25,9 +25,6 @@ public class Board {
     private String title;
 
     @Column
-    private String subTitle;
-
-    @Column
     private String content;
 
     @Column
@@ -40,10 +37,9 @@ public class Board {
     private User user;
 
     @Builder
-    public Board(String title, String subTitle, String content, LocalDateTime createdDate,
+    public Board(String title, String content, LocalDateTime createdDate,
                  LocalDateTime updatedDate, User user){
         this.title = title;
-        this.subTitle = subTitle;
         this.content = content;
         this.createdDate = createdDate;
         this.updatedDate = updatedDate;

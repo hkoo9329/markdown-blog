@@ -32,7 +32,6 @@ public class MarkdownBlogApplication {
             IntStream.rangeClosed(1, 200).forEach(index ->
                     boardRepository.save(Board.builder()
                             .title("게시글"+index)
-                            .subTitle("순서"+index)
                             .content("컨텐츠")
                             .createdDate(LocalDateTime.now())
                             .updatedDate(LocalDateTime.now())
