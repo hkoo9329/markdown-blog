@@ -14,26 +14,37 @@
         <a href="/board/page" class="btn btn-primary btn-block">등록</a>
     </div>
     <br/><br/><br/>
-    <div id="mainHide">
-        <table class="table table-hover">
-            <thead>
-            <tr>
-                <th class="col-md-1">#</th>
-                <th class="col-md-5">제목</th>
-                <th class="col-md-2">작성 날짜</th>
-                <th class="col-md-2">수정 날짜</th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr th:each="board : ${boardList}">
-                <td th:text="${board.idx}"></td>
-                <td><a th:href="'/board?idx='+${board.idx}" th:text="${board.title}"></a></td>
-                <td th:text="${#temporals.format(board.createdDate,'yyyy-MM-dd HH:mm')}"></td>
-                <td th:text="${#temporals.format(board.updatedDate,'yyyy-MM-dd HH:mm')}"></td>
-            </tr>
-            </tbody>
-        </table>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-4" th:each="board : ${boardList}">
+                <p class="display-3 font-weight-bold" th:text="${board.title}"></p>
+                <p class="text-right" style="font-size: 15px;" th:text="${board.createdDate} ? ${#temporals.format(board.createdDate,'yyyy-MM-dd HH:mm')} : ${board.createdDate}"></p>
+                <a class="thumbnail" th:href="'/board?idx='+${board.idx}"><img src="/images/no-image.png"
+                                                                               style="width: 50%;"></a>
+            </div>
+        </div>
     </div>
+<!--    섬네일 포스팅 방식으로 변경    -->
+
+
+<!--        <table class="table table-hover">-->
+<!--            <thead>-->
+<!--            <tr>-->
+<!--                <th class="col-md-1">#</th>-->
+<!--                <th class="col-md-5">제목</th>-->
+<!--                <th class="col-md-2">작성 날짜</th>-->
+<!--                <th class="col-md-2">수정 날짜</th>-->
+<!--            </tr>-->
+<!--            </thead>-->
+<!--            <tbody>-->
+<!--            <tr th:each="board : ${boardList}">-->
+<!--                <td th:text="${board.idx}"></td>-->
+<!--                <td><a th:href="'/board?idx='+${board.idx}" th:text="${board.title}"></a></td>-->
+<!--                <td th:text="${#temporals.format(board.createdDate,'yyyy-MM-dd HH:mm')}"></td>-->
+<!--                <td th:text="${#temporals.format(board.updatedDate,'yyyy-MM-dd HH:mm')}"></td>-->
+<!--            </tr>-->
+<!--            </tbody>-->
+<!--        </table>-->
     <br/>
     <!-- Pagination -->
     <nav aria-label="Page navigation" style="text-align:center;">
