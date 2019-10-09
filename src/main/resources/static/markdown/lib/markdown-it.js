@@ -7270,7 +7270,7 @@ module.exports=/[\0-\uD7FF\uDC00-\uFFFF]|[\uD800-\uDBFF][\uDC00-\uDFFF]|[\uD800-
 'use strict';
 
 
-//module.exports = require('./markdown-it');
+module.exports = require('./markdown-it');
 
 },{"./lib/":10}]},{},[66])(66)
 });
