@@ -38,7 +38,6 @@ public class JpaMappingTest {
 
         boardRepository.save(Board.builder()
         .title(boardTestTitle)
-        .subTitle("서브 타이틀")
         .content("컨텐츠")
         .createdDate(LocalDateTime.now())
         .updatedDate(LocalDateTime.now())
@@ -53,7 +52,6 @@ public class JpaMappingTest {
 
         Board board = boardRepository.findByUser(user);
         assertThat(board.getTitle(), is(boardTestTitle));
-        assertThat(board.getSubTitle(), is("서브 타이틀"));
         assertThat(board.getContent(), is("컨텐츠"));
     }
 }
