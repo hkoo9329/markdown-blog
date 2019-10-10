@@ -1,0 +1,11 @@
+#title{
+    font-size: x-large;
+    font-family: "맑은 고딕 Semilight";
+}
+#date{
+    font-size: small;
+    color: gray;
+}
+#posting_box{
+    padding: 10px;
+}
