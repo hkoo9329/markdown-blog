@@ -1,0 +1,13 @@
+@import url(http://cdn.jsdelivr.net/font-nanum/1.0/nanumbarungothic/nanumbarungothic.css);
+
+#title{
+    font-size: x-large;
+    font-family: "나눔고딕 ExtraBold";
+}
+#date{
+    font-size: small;
+    color: gray;
+}
+#posting_box{
+    padding: 10px;
+}
