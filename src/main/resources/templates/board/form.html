@@ -6,7 +6,7 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css"/>
     <link rel="stylesheet" href="/markdown/lib/base16-light.css">
     <link rel="stylesheet" href="/markdown/codemirror/lib/codemirror.css">
-    <link rel="stylesheet" href="/markdown/lib/default.css">
+    <link rel="stylesheet" href="/markdown/index.css">
     <link rel="stylesheet" href="/markdown/lib/github-markdown.css">
     <link rel="stylesheet" href="/markdown/lib/sweetalert.css">
 </head>
@@ -26,36 +26,15 @@
         <button type="button" class="btn btn-info" id="update">수정</button>
         <button type="button" class="btn btn-danger" id="delete">삭제</button>
     </div>
-<!--    <div>-->
-<!--        <input id="board_title" type="text" class="col-md-1 form-control input-sm" th:value="${board?.title}"/>-->
-<!--    </div>-->
-
-<!--    <table class="table">-->
-<!--        <tr>-->
-<!--            <th style="padding:13px 0 0 15px;">제목</th>-->
-<!--            <td><input id="board_title" type="text" class="col-md-1 form-control input-sm" th:value="${board?.title}"/>-->
-<!--            </td>-->
-<!--        </tr>-->
-<!--        <tr>-->
-<!--            <th style="padding:13px 0 0 15px;">내용</th>-->
-<!--            <td><textarea id="board_content" class="col-md-1 form-control input-sm" maxlength="140" rows="7"-->
-<!--                          style="height: 200px;"-->
-<!--                          th:text="${board?.content}"></textarea><span class="help-block"></span>-->
-<!--            </td>-->
-<!--        </tr>-->
-<!--        <tr>-->
-<!--            <td></td>-->
-<!--            <td></td>-->
-<!--        </tr>-->
-<!--    </table>-->
-
     <div>
-        <div id="in">
-            <form><textarea style="display: inline-block;" id="code" class="col-md-1 form-control input-sm"></textarea></form>
-        </div>
-        <div id="out"></div>
+        <input id="board_title" type="text" class="col-md-1 form-control input-sm" th:value="${board?.title}"/>
     </div>
-
+</div>
+<div>
+    <div id="in">
+        <form><textarea id="code" class="col-md-1 form-control input-sm"></textarea></form>
+    </div>
+    <div id="out"></div>
 </div>
 <script th:src="@{/js/jquery.min.js}"></script>
 <script src="/markdown/lib/markdown-it.js"></script>

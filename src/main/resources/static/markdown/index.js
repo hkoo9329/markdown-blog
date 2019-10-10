@@ -48,8 +48,8 @@ function update(e) {
         oldTitle = title;
         document.title = title;
     }
-    //clearTimeout(hashto);
-    //hashto = setTimeout(updateHash, 1000);
+    clearTimeout(hashto);
+    hashto = setTimeout(updateHash, 1000);
 }
 
 function setOutput(val) {
@@ -125,17 +125,17 @@ editor.addKeyMap({
     }
 });
 
-document.addEventListener('drop', function (e) {
-    e.preventDefault();
-    e.stopPropagation();
-
-    var reader = new FileReader();
-    reader.onload = function (e) {
-        editor.setValue(e.target.result);
-    };
-
-    reader.readAsText(e.dataTransfer.files[0]);
-}, false);
+// document.addEventListener('drop', function (e) {
+//     e.preventDefault();
+//     e.stopPropagation();
+//
+//     var reader = new FileReader();
+//     reader.onload = function (e) {
+//         editor.setValue(e.target.result);
+//     };
+//
+//     reader.readAsText(e.dataTransfer.files[0]);
+// }, false);
 
 //Print the document named as the document title encoded to avoid strange chars and spaces
 // function saveAsMarkdown() {
@@ -171,86 +171,12 @@ document.addEventListener('drop', function (e) {
 //
 // }
 
-// var menuVisible = false;
-// var menu = document.getElementById('menu');
-//
-// function showMenu() {
-//     menuVisible = true;
-//     menu.style.display = 'block';
-// }
-//
-// function hideMenu() {
-//     menuVisible = false;
-//     menu.style.display = 'none';
-// }
-
-// function openFile(evt) {
-//     if (window.File && window.FileReader && window.FileList && window.Blob) {
-//         var files = evt.target.files;
-//         console.log(files);
-//         var reader = new FileReader();
-//         reader.onload = function(file) {
-//             console.log(file.target.result);
-//             editor.setValue(file.target.result);
-//             return true;
-//         };
-//         reader.readAsText(files[0]);
-//
-//     } else {
-//         alert('The File APIs are not fully supported in this browser.');
-//     }
-// }
-//
-// document.getElementById('close-menu').addEventListener('click', function() {
-//     hideMenu();
-// });
-
-document.addEventListener('keydown', function (e) {
-    if (e.keyCode == 83 && (e.ctrlKey || e.metaKey)) {
-        if (localStorage.getItem('content') == editor.getValue()) {
-            e.preventDefault();
-            return false;
-        }
-        e.shiftKey ? showMenu() : saveInBrowser();
-
-        e.preventDefault();
-        return false;
-    }
-
-    if (e.keyCode === 27 && menuVisible) {
-        hideMenu();
-
-        e.preventDefault();
-        return false;
-    }
-});
 
 function clearEditor() {
     editor.setValue("");
 }
 
-// function saveInBrowser() {
-//     var text = editor.getValue();
-//     if (localStorage.getItem('content')) {
-//         swal({
-//                 title: "Existing Data Detected",
-//                 text: "You will overwrite the data previously saved!",
-//                 type: "warning",
-//                 showCancelButton: true,
-//                 confirmButtonColor: "#DD6B55",
-//                 confirmButtonText: "Yes, overwrite!",
-//                 closeOnConfirm: false
-//             },
-//             function() {
-//                 localStorage.setItem('content', text);
-//                 swal("Saved", "Your Document has been saved.", "success");
-//             });
-//     } else {
-//         localStorage.setItem('content', text);
-//         swal("Saved", "Your Document has been saved.", "success");
-//     }
-//     console.log("Saved");
-// }
+
 
 function toggleNightMode(button) {
     button.classList.toggle('selected');
@@ -302,11 +228,10 @@ function start() {
     editor.focus();
 }
 
-window.addEventListener("beforeunload", function (e) {
-    var confirmationMessage = 'It looks like you have been editing something. '
-        + 'If you leave before saving, your changes will be lost.';
-    (e || window.event).returnValue = confirmationMessage; //Gecko + IE
-    return confirmationMessage; //Gecko + Webkit, Safari, Chrome etc.
-});
+// window.addEventListener("beforeunload", function (e) {
+//     var confirmationMessage = 'It looks like you have been editing something. '
+//         + 'If you leave before saving, your changes will be lost.';
+//     (e || window.event).returnValue = confirmationMessage; //Gecko + IE
+//     return confirmationMessage; //Gecko + Webkit, Safari, Chrome etc.
+// });
 
-start();
