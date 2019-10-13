@@ -11,11 +11,36 @@
 <div class="container" style="text-align: center;">
     <br/>
     <h2>로그인</h2> <br/><br/>
-
+    <form id="login_form">
+        <input type="text" id="username" name="username" class="form-control" placeholder="아이디를 입력해 주세요."/>
+        <input type="password" id="password" name="password" class="form-control" placeholder="비밀번호를 입력해 주세요."/>
+    </form>
+    <div>
+        <button class="btn-primary login_form_btn" id="login_submit">로그인</button>
+        <button class="btn-primary login_form_btn" id="sign_up">회원가입</button>
+    </div>
 
 
 </div>
 
 <script th:src="@{/js/jquery.min.js}"></script>
+<script>
+    $('#login_submit').click(function () {
+        var sign_in_form = $("#login_submit").serialize();
+        $.ajax({
+            type: 'POST',
+            url: '/login',
+            cache: false,
+            data: sign_in_form,
+            success: function (data) {
+                alert(data + "ss");
+                window.location.replace("/board/list");
+            },
+            error: function (request, status, error) {
+                console.error("code:" + request.status + "\n" + "message:" + request.responseText + "\n" + "error:" + error);
+            }
+        });
+    });
+</script>
 </body>
 </html>

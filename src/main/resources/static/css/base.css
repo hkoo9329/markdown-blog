@@ -11,3 +11,9 @@
 #posting_box{
     padding: 10px;
 }
+
+.login_form_btn{
+    width: 40%;
+    margin: 1em;
+    display: inline-block;
+}
