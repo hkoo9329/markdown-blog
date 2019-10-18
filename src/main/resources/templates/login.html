@@ -8,7 +8,7 @@
 </head>
 <body>
 
-<div class="container" style="text-align: center;">
+<div class="container" style="text-align: center; margin: 30%">
     <br/>
     <h2>로그인</h2> <br/><br/>
     <form id="login_form">
@@ -21,11 +21,11 @@
     </div>
     <hr/>
     <p>다른 계정으로 로그인</p>
-    <a href="javascript:;" class="btn_social" data-social="google"><img th:src="@{/static/images/login_button/naver_login_button.PNG}" width="60px"
+    <a href="javascript:;" class="btn_social" data-social="google"><img th:src="@{/images/login_button/naver_login_button.PNG}" width="60px"
                                                                         height="60px"/></a>
     <a href="javascript:;" class="btn_social" data-social="kakao"><img th:src="@{/images/login_button/kakao_login_button.png}" width="60px"
                                                                        height="60px"/></a>
-    <a href="javascript:;" class="btn_social" data-social="github"><img th:src="@{/static/images/login_button/github_login_button.png}" width="60px"
+    <a href="javascript:;" class="btn_social" data-social="github"><img th:src="@{/images/login_button/github_login_button.png}" width="60px"
                                                                         height="60px"/></a>
 
 
@@ -36,6 +36,7 @@
     //OAuth2 로그인
     $('.btn_social').click(function () {
         var socialType = $(this).data('social');
+        alert(socialType);
         window.location.replace("/oauth2/authorization/" + socialType);
     });
 
