@@ -92,26 +92,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
         return new InMemoryClientRegistrationRepository(registrations);
     }
 
-//    @Bean
-//    public ClientRegistrationRepository clientRegistrationRepository(OAuth2ClientProperties oAuth2ClientProperties,
-//                                                                     @Value("${custom.oauth2.naver.client-id}") String naverClientId,
-//                                                                     @Value("${custom.oauth2.naver.client-secret}") String naverClientPaw) {
-//        List<ClientRegistration> registrations = oAuth2ClientProperties.getRegistration().keySet().stream()
-//                .map(client -> getRegistration(oAuth2ClientProperties, client))
-//                .filter(Objects::nonNull)
-//                .collect(Collectors.toList());
-//
-//        registrations.add(CustomOAuth2Provider.NAVER.getBuilder("naver")
-//                .clientId(naverClientId)
-//                .clientSecret(naverClientPaw)
-//                .build());
-//
-//        return new InMemoryClientRegistrationRepository(registrations);
-//    }
-
     private ClientRegistration getRegistration(OAuth2ClientProperties clientProperties, String client) {
-        // client 확인용 log
-        log.info("client : "+client);
         if ("google".equals(client)) {
             OAuth2ClientProperties.Registration registration = clientProperties.getRegistration().get("google");
             return CommonOAuth2Provider.GOOGLE.getBuilder(client)
