@@ -110,8 +110,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
 //    }
 
     private ClientRegistration getRegistration(OAuth2ClientProperties clientProperties, String client) {
-        // client 확인용 log
-        log.info("client : "+client);
         if ("google".equals(client)) {
             OAuth2ClientProperties.Registration registration = clientProperties.getRegistration().get("google");
             return CommonOAuth2Provider.GOOGLE.getBuilder(client)
