@@ -22,9 +22,9 @@
         <a href="/board/list" class="btn btn-default">목록으로</a>
     </div>
     <div class="pull-right">
-        <button type="button" class="btn btn-primary" id="insert">저장</button>
-        <button type="button" class="btn btn-info" id="update">수정</button>
-        <button type="button" class="btn btn-danger" id="delete">삭제</button>
+        <button th:if="!${board?.idx}" type="button" class="btn btn-primary" id="insert">저장</button>
+        <button th:if="${board?.idx}" type="button" class="btn btn-info" id="update">수정</button>
+        <button th:if="${board?.idx}" type="button" class="btn btn-danger" id="delete">삭제</button>
     </div>
     <div>
         <input id="board_title" type="text" class="col-md-1 form-control input-sm" th:value="${board?.title}"/>
@@ -62,7 +62,7 @@
             content: $('#code').text()
         });
         $.ajax({
-            url: null//나중에 추가,
+            url: '/api/boards',//나중에 추가,
             type: 'POST',
             data: jsonData,
             contentType: "application/json",
@@ -84,7 +84,7 @@
             content: $('#code').text()
         });
         $.ajax({
-            url: null, // 임시
+            url: '/api/boards', // 임시
             type:'PUT',
             data: jsonData,
             contentType: "application/json",
@@ -100,7 +100,7 @@
     });
     $('#delete').click(function () {
        $.ajax({
-           url: null,//임시
+           url: '/api/boards',//임시
            type: 'DELETE',
            success:function () {
                alert('삭제되었습니다.');

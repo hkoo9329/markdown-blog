@@ -1,5 +1,9 @@
 @import url(http://cdn.jsdelivr.net/font-nanum/1.0/nanumbarungothic/nanumbarungothic.css);
 
+body{
+    font-family: "나눔고딕 ExtraBold";
+}
+
 #title{
     font-size: x-large;
     font-family: "나눔고딕 ExtraBold";
@@ -10,10 +14,4 @@
 }
 #posting_box{
     padding: 10px;
-}
-
-.login_form_btn{
-    width: 40%;
-    margin: 1em;
-    display: inline-block;
 }

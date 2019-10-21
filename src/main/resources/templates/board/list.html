@@ -15,7 +15,7 @@
         <a href="/board/page" class="btn btn-primary btn-block">등록</a>
         <a href="/logout">logout</a><!-- 임시 로그아웃 버튼-->
     </div>
-    <br/><br/><br/>
+    <br/><br/><br/><br/>
 
     <!--    섬네일 포스팅 방식으로 변경    -->
     <div class="container-fluid">
@@ -26,7 +26,6 @@
                 <p id="title" class="display-3 font-weight-bold" th:text="${board.title}"></p>
                 <p id="date" class="text-right" style="font-size: 15px;"
                    th:text="${board.createdDate} ? ${#temporals.format(board.createdDate,'yyyy년 MM월 dd일')} : ${board.createdDate}"></p>
-
             </div>
         </div>
     </div>

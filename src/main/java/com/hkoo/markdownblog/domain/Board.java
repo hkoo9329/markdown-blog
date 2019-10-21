@@ -45,4 +45,13 @@ public class Board {
         this.updatedDate = updatedDate;
         this.user = user;
     }
+
+    public void setCreatedDateNow() {
+        this.createdDate = LocalDateTime.now();
+    }
+
+    public void update(Board board) {
+        this.title = board.title;
+        this.content = board.content;
+    }
 }

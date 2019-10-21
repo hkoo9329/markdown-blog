@@ -7,7 +7,7 @@
     <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
 </head>
 <body>
-<div class="container" style="text-align: center; margin: 30%">
+<div class="container" style="text-align: center;">
     <br/>
     <h2>로그인</h2> <br/><br/>
     <form id="login_form">
@@ -35,7 +35,6 @@
     //OAuth2 로그인
     $('.btn_social').click(function () {
         var socialType = $(this).data('social');
-        alert(socialType);
         window.location.replace("/oauth2/authorization/" + socialType);
     });
 
