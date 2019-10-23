@@ -31,6 +31,7 @@ public class CreateUserApiController {
     }
     @RequestMapping("/create/user")
     public void signUpUser(@RequestBody Map<String,String> user){
+
         userService.signUpUser(user);
     }
     @RequestMapping("/check/email")

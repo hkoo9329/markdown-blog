@@ -55,7 +55,7 @@
                 data: JSON.stringify(singUpData),
                 success: function () {
                     alert("가입되었습니다.");
-                    window.location.href = "/login";
+                    window.location.replace("/login");
                 },
                 error: function (request, status, error) {
                     console.error("code:" + request.status + "\n" + "message:" + request.responseText + "\n" + "error:" + error);

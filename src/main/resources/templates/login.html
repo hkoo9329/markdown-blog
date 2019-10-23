@@ -40,14 +40,13 @@
 
     //기본 로그인
     $('#login_submit').click(function () {
-        var sign_in_form = $("#login_submit").serialize();
+        var sign_in_form = $("#login_form").serialize();
         $.ajax({
             type: 'POST',
             url: '/login',
             cache: false,
             data: sign_in_form,
             success: function (data) {
-                alert(data + "ss");
                 window.location.replace("/board/list");
             },
             error: function (request, status, error) {
