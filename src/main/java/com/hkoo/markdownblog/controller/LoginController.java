@@ -21,4 +21,9 @@ public class LoginController {
         return "redirect:/board/list";
     }
 
+    @RequestMapping("/signUp")
+    public String signUpUser(){
+        return "signUp";
+    }
+
 }

@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <title>login</title>
+    <link rel="stylesheet" th:href="@{/css/base.css}"/>
+    <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
+</head>
+<body>
+<div class="container" style="text-align: center; width: 50%">
+    <h2>회원가입</h2>
+    <br/>
+    <form>
+        <div>
+            <span>이메일 : </span>
+            <input id="insert_email" type="text" placeholder="이메일을 입력해주세요."/>
+            <span id="email_error_message"></span>
+        </div>
+        <div>
+            <span>비밀번호 : </span>
+            <input id="insert_password" type="password" placeholder="6~12자리 그리고 영문숫자의 조합으로 입력해주세요."/>
+            <span id="password_error_message"></span>
+        </div>
+        <div>
+            <span>닉네임 : </span>
+            <input id="insert_nickname" type="text" placeholder="닉네임을 입력해주세요."/>
+            <span id="nickname_error_message"></span>
+        </div>
+    </form>
+    <div class="btn-primary" id="submit_signup">SignUp</div>
+</div>
+
+<script th:src="@{/js/jquery.min.js}"></script>
+<script>
+    var email_checker = false;
+    var pwd_checker = false;
+    var nick_checker = false;
+    $('#submit_signup').click(function () {
+        var singUpData = {
+            "email": $('#insert_email').val(),
+            "password": $('#insert_password').val(),
+            "name": $('#insert_nickname').val()
+        }
+        if (!nick_checker) {
+            alert("닉네임을 다시 설정해주세요.");
+        } else if (!email_checker) {
+            alert("이메일을 다시 확인해주세요.");
+        } else if (!pwd_checker) {
+            alert("비밀번호를 다시 확인해주세요.");
+        } else {
+            $.ajax({
+                type: 'POST',
+                url: '/api/create/user',
+                contentType: 'application/json',
+                data: JSON.stringify(singUpData),
+                success: function () {
+                    alert("가입되었습니다.");
+                    window.location.href = "/login";
+                },
+                error: function (request, status, error) {
+                    console.error("code:" + request.status + "\n" + "message:" + request.responseText + "\n" + "error:" + error);
+                }
+            });
+        }
+
+    });
+    // 아이디 유효성 검사
+    $("#insert_email").focusout(function () {
+        var id_text = $(this).val();
+        console.log(id_text);
+        var userData = {"id": id_text};
+        $.ajax({
+            type: "POST",
+            url: "/api/check/id",
+            data: {"id": id_text},
+            success: function (data) {
+                if (!data) {
+                    $('#email_error_message').text("이메일이 존재합니다.").css("color", "red");
+                    email_checker = false;
+                } else if (!checkEmail(id_text)) {
+                    $('#email_error_message').text("이메일이 형식이 올바르지 않습니다.").css("color", "red");
+                    email_checker = false;
+                } else {
+                    $('#email_error_message').text("사용가능한 이메일 입니다.").css("color", "blue");
+                    email_checker = true;
+                }
+            },
+            error: function (request, status, error) {
+                console.error("code:" + request.status + "\n" + "message:" + request.responseText + "\n" + "error:" + error);
+            }
+        });
+    });
+    // 닉네임 길이 휴효성 검사
+    $('#insert_nickname').focusout(function () {
+        var nickname = $(this).val();
+        if (nickname.length > 20 || nickname.length < 2) {
+            $('#nickname_error_message').text("닉네임은 2자에서 20자 사이 입니다.").css("color", "red");
+            nick_checker = false;
+        } else {
+            $('#nickname_error_message').text("사용가능한 닉네임 입니다.").css("color", "blue");
+            nick_checker = true;
+        }
+    });
+    // 비밀번호 유효성 검사
+    var checker = false;
+    $('#insert_password').focusout(function () {
+        if (!checkpassword($(this).val())) {
+            $('#password_error_message').text("비밀번호는 숫자 영문 포함 6~12자리입니다.").css("color", "red");
+            pwd_checker = false;
+        } else {
+            $('#password_error_message').text("사용가능한 비밀번호 입니다.").css("color", "blue");
+            pwd_checker = true;
+        }
+    });
+
+    // 이메일 형식 정규식 검사
+    function checkEmail(email) {
+        var exptext = /^[A-Za-z0-9_\.\-]+@[A-Za-z0-9\-]+\.[A-Za-z0-9\-]+/;
+        if (!exptext.test(email)) {
+            //이메일 형식이 알파벳+숫자@알파벳+숫자.알파벳+숫자 형식이 아닐경우
+            return false;
+        } else {
+            return true;
+        }
+    }
+
+    // 비밍번호 규칙 정규식 검사
+    function checkpassword(password) {
+        var regex = /^[A-Za-z0-9]{6,12}$/;
+        if (!regex.test(password)) {
+            //유효성이 맞지 않는 경우
+            return false;
+        } else {
+            return true;
+        }
+    }
+
+</script>
+</body>
+</html>

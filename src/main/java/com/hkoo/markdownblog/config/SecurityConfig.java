@@ -1,11 +1,14 @@
 package com.hkoo.markdownblog.config;
 
 import com.hkoo.markdownblog.oauth2.CustomOAuth2Provider;
+import com.hkoo.markdownblog.service.UserService;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.autoconfigure.security.oauth2.client.OAuth2ClientProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
@@ -29,13 +32,15 @@ import static com.hkoo.markdownblog.domain.enums.SocialType.*;
 @Slf4j
 public class SecurityConfig extends WebSecurityConfigurerAdapter{
 
+    @Autowired
+    private UserService userService;
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         CharacterEncodingFilter filter = new CharacterEncodingFilter();
         http
                 .authorizeRequests()
-                .antMatchers("/", "/oauth2/**", "/login/**", "/css/**", "/images/**", "/js/**", "/console/**","/loginFailure").permitAll()
+                .antMatchers("/", "/oauth2/**", "/login/**", "/css/**", "/images/**", "/js/**", "/console/**","/loginFailure","/signUp").permitAll()
                 .antMatchers("/api/**").permitAll()// api 접근은 모두 허용
                 .antMatchers("/google").hasAuthority(GOOGLE.getRoleType())
                 .antMatchers("/kakao").hasAuthority(KAKAO.getRoleType())
@@ -67,6 +72,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
                 .csrf().disable();
     }
 
+    @Override
+    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
+        auth.userDetailsService(userService).passwordEncoder(passwordEncoder());
+    }
 
     @Bean
     public BCryptPasswordEncoder passwordEncoder(){
