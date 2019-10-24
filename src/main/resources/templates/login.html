@@ -7,16 +7,16 @@
     <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
 </head>
 <body>
-<div class="container" style="text-align: center;">
+<div class="container" style="text-align: center; width: 30%;">
     <br/>
     <h2>로그인</h2> <br/><br/>
-    <form id="login_form">
-        <input type="text" id="username" name="username" class="form-control" placeholder="아이디를 입력해 주세요."/>
-        <input type="password" id="password" name="password" class="form-control" placeholder="비밀번호를 입력해 주세요."/>
+    <form id="login_form" style="margin: 10px;">
+        <input type="text" id="username" name="username" class="form-control form-control-lg" placeholder="아이디를 입력해 주세요."/>
+        <input type="password" id="password" name="password" class="form-control form-control-lg" placeholder="비밀번호를 입력해 주세요."/>
     </form>
     <div>
-        <button class="btn-primary login_form_btn" id="login_submit">로그인</button>
-        <button class="btn-primary login_form_btn" id="sign_up">회원가입</button>
+        <button class="btn btn-outline-primary btn-block" id="login_submit">로그인</button>
+        <button class="btn btn-outline-primary btn-block" id="sign_up">회원가입</button>
     </div>
     <hr/>
     <p>다른 계정으로 로그인</p>

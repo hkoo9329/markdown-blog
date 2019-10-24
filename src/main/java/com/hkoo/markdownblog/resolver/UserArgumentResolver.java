@@ -1,6 +1,6 @@
 package com.hkoo.markdownblog.resolver;
 
-import com.hkoo.markdownblog.annotation.SocialUser;
+import com.hkoo.markdownblog.annotation.Socialuser;
 import com.hkoo.markdownblog.domain.User;
 import com.hkoo.markdownblog.domain.enums.SocialType;
 import com.hkoo.markdownblog.repository.UserRepository;
@@ -34,7 +34,7 @@ public class UserArgumentResolver implements HandlerMethodArgumentResolver {
 
     @Override
     public boolean supportsParameter(MethodParameter parameter) {
-        return parameter.getParameterAnnotation(SocialUser.class)
+        return parameter.getParameterAnnotation(Socialuser.class)
                 != null && parameter.getParameterType().equals(User.class);
     }
 
