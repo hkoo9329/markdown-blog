@@ -31,9 +31,9 @@ public class BoardController {
 
     @GetMapping("/list")
     public String list(@PageableDefault Pageable pageable, @AuthenticationPrincipal User formUser, @Socialuser User socialUser, Model model) {
-        model.addAttribute("boardList", boardService.findBoardList(pageable));
         User user = formUser != null ? formUser : socialUser;
-        log.info("user : " + user.getIdx());
+        model.addAttribute("user",user);
+        model.addAttribute("boardList", boardService.findBoardList(pageable));
         return "/board/list";
     }
 }

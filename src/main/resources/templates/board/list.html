@@ -7,7 +7,7 @@
     <link rel="stylesheet" href="/css/base.css">
 </head>
 <body>
-<div class="container">
+<div class="container" id="board_list">
     <div class="page-header">
         <h1>게시글 목록</h1>
     </div>
@@ -16,7 +16,7 @@
         <a href="/logout">logout</a><!-- 임시 로그아웃 버튼-->
     </div>
     <br/><br/><br/><br/>
-
+    <input id="user" type="hidden" th:object="${user}"/>
     <!--    섬네일 포스팅 방식으로 변경    -->
     <div class="container-fluid">
         <div class="row">
@@ -52,5 +52,86 @@
     </nav>
     <!-- /Pagination -->
 </div>
+<div class="container" id="getEmail" style="display: none;">
+    <h2>이메일을 입력해주세요</h2>
+    <input id="insert_email" type="text" placeholder="이메일을 입력해주세요."/>
+    <span id="email_error_message"></span>
+    <div class="btn btn-primary" id="submit_email">등록</div>
+</div>
+<script th:src="@{/js/jquery.min.js}"></script>
+<script>
+    var emailChecker = false;
+
+    $(document).ready(function () {
+        $.ajax({
+            type:'GET',
+            url:'/api/check/email',
+            success: function (data) {
+                if (data){
+                    $('#board_list').hide();
+                    $('#getEmail').show();
+                }
+            },
+            error: function (request, status, error) {
+                console.error("code:" + request.status + "\n" + "message:" + request.responseText + "\n" + "error:" + error);
+            }
+        });
+    });
+    $("#insert_email").focusout(function () {
+        var email = $(this).val();
+        console.log(email);
+        var userData = {"id": email};
+        $.ajax({
+            type: "POST",
+            url: "/api/check/id",
+            data: {"id": email},
+            success: function (data) {
+                if (!data) {
+                    $('#email_error_message').text("이메일이 존재합니다.").css("color", "red");
+                    emailChecker = false;
+                } else if (!checkEmail(email)) {
+                    $('#email_error_message').text("이메일이 형식이 올바르지 않습니다.").css("color", "red");
+                    emailChecker = false;
+                } else {
+                    $('#email_error_message').text("사용가능한 이메일 입니다.").css("color", "blue");
+                    emailChecker = true;
+                }
+            },
+            error: function (request, status, error) {
+                console.error("code:" + request.status + "\n" + "message:" + request.responseText + "\n" + "error:" + error);
+            }
+        });
+    });
+    $('#submit_email').click(function () {
+        if (!emailChecker) {
+            alert("올바른 이메일을 입력해주세요");
+            return;
+        }
+        var id = $("#insert_email").val();
+        $.ajax({
+            type: 'POST',
+            url: '/api/create/email',
+            contentType: 'application/json',
+            data: id,
+            success: function () {
+                alert("이메일 입력이 완료되었습니다!");
+                $("#board_list").show();
+                $("#getEmail").hide();
+            },
+            error: function (request, status, error) {
+                console.error("code:" + request.status + "\n" + "message:" + request.responseText + "\n" + "error:" + error);
+            }
+        });
+    });
+    function checkEmail(email) {
+        var exptext = /^[A-Za-z0-9_\.\-]+@[A-Za-z0-9\-]+\.[A-Za-z0-9\-]+/;
+        if (!exptext.test(email)) {
+            //이메일 형식이 알파벳+숫자@알파벳+숫자.알파벳+숫자 형식이 아닐경우
+            return false;
+        } else {
+            return true;
+        }
+    }
+</script>
 </body>
 </html>
