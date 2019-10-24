@@ -1,6 +1,6 @@
 package com.hkoo.markdownblog.controller.api;
 
-import com.hkoo.markdownblog.annotation.SocialUser;
+import com.hkoo.markdownblog.annotation.Socialuser;
 import com.hkoo.markdownblog.domain.User;
 import com.hkoo.markdownblog.repository.UserRepository;
 import com.hkoo.markdownblog.service.UserService;
@@ -35,7 +35,7 @@ public class CreateUserApiController {
         userService.signUpUser(user);
     }
     @RequestMapping("/check/email")
-    public void updateEmail(@RequestBody String email, @SocialUser User user){
+    public void updateEmail(@RequestBody String email, @Socialuser User user){
         userService.updateUserEmail(email, user);
     }
 

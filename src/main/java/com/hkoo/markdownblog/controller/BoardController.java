@@ -1,6 +1,6 @@
 package com.hkoo.markdownblog.controller;
 
-import com.hkoo.markdownblog.annotation.SocialUser;
+import com.hkoo.markdownblog.annotation.Socialuser;
 import com.hkoo.markdownblog.domain.User;
 import com.hkoo.markdownblog.service.BoardService;
 import lombok.extern.slf4j.Slf4j;
@@ -30,7 +30,7 @@ public class BoardController {
     }
 
     @GetMapping("/list")
-    public String list(@PageableDefault Pageable pageable, @AuthenticationPrincipal User formUser, @SocialUser User socialUser, Model model) {
+    public String list(@PageableDefault Pageable pageable, @AuthenticationPrincipal User formUser, @Socialuser User socialUser, Model model) {
         model.addAttribute("boardList", boardService.findBoardList(pageable));
         User user = formUser != null ? formUser : socialUser;
         log.info("user : " + user.getIdx());
