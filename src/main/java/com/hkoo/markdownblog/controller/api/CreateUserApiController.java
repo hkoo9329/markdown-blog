@@ -5,6 +5,7 @@ import com.hkoo.markdownblog.domain.User;
 import com.hkoo.markdownblog.repository.UserRepository;
 import com.hkoo.markdownblog.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Map;
@@ -34,9 +35,15 @@ public class CreateUserApiController {
 
         userService.signUpUser(user);
     }
-    @RequestMapping("/check/email")
+    @RequestMapping("/create/email")
     public void updateEmail(@RequestBody String email, @Socialuser User user){
         userService.updateUserEmail(email, user);
+    }
+    @GetMapping("/check/email")
+    public boolean userEmailCheck(@Socialuser User socialUser, @AuthenticationPrincipal User FormUser){
+        User user = FormUser != null ? FormUser : socialUser;
+        boolean checker = (user.getEmail().equals("null"));
+        return checker;
     }
 
 }
