@@ -19,8 +19,8 @@
     <div class="pull-right">
     </div>
     <br/>
-    <input id="user_idx" type="hidden" th:value="${user.idx}"/>
-<!--    <input id="user_name" type="hidden" th:value="${user?.name}"/>-->
+    <!--    <input id="user_name" type="hidden" th:value="${user.name}"/>-->
+    <input id="user_idx" type="hidden" th:value="${user?.idx}"/>
     <input id="board_idx" type="hidden" th:value="${board?.idx}"/>
     <div class="pull-left">
         <a href="/board/list" class="btn btn-default">목록으로</a>
@@ -32,6 +32,9 @@
     </div>
     <div>
         <input id="board_title" type="text" class="col-md-1 form-control input-sm" th:value="${board?.title}"/>
+        <form method="post" enctype="multipart/form-data" id="formData">
+            <input id="thumbnail" type="file" name="thumbnail">
+        </form>
     </div>
 </div>
 <div>
@@ -65,18 +68,26 @@
     });
 </script>
 <script th:if="!${board?.idx}">
+
     $('#insert').click(function () {
-        var jsonData = JSON.stringify({
-            title: $('#board_title').val(),
-            content: editor.getValue()
-        });
+        var form = $('#formData')[0];
+        var formData = new FormData(form);
+        // var jsonData = JSON.stringify({
+        //     title: $('#board_title').val(),
+        //     content: editor.getValue(),
+        //     user: $('#user_idx').val()
+        // });
+        formData.append("title",$('#board_title').val());
+        formData.append("content",editor.getValue());
+        formData.append("user",$('#user_idx').val());
         $.ajax({
             url: '/api/boards',
             type: 'POST',
-            data: jsonData,
-            contentType: "appli" +
-                "cation/json",
-            dataType: "json",
+            enctype: 'multipart/form-data',
+            data: formData,
+            contentType: false,
+            processData: false,
+            cache: false,
             success: function () {
                 alert('저장되었습니다.');
                 location.href = '/board/list';
@@ -110,7 +121,7 @@
     });
     $('#delete').click(function () {
         $.ajax({
-            url: '/api/boards/'+ $('#board_idx').val(),
+            url: '/api/boards/' + $('#board_idx').val(),
             type: 'DELETE',
             success: function () {
                 alert('삭제되었습니다.');

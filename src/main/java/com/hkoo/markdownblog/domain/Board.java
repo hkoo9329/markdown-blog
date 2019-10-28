@@ -5,8 +5,10 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.persistence.*;
+import java.io.IOException;
 import java.time.LocalDateTime;
 
 @Data
@@ -14,7 +16,7 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @Entity
 @Table
-public class Board {
+public class Board{
 
     @Id
     @Column
@@ -33,17 +35,21 @@ public class Board {
     @Column
     private LocalDateTime updatedDate;
 
+    @OneToOne(cascade = CascadeType.ALL)
+    private Thumbnail thumbnail;
+
     @OneToOne(fetch = FetchType.LAZY)
     private User user;
 
     @Builder
     public Board(String title, String content, LocalDateTime createdDate,
-                 LocalDateTime updatedDate, User user){
+                 LocalDateTime updatedDate, User user, Thumbnail thumbnail) throws IOException {
         this.title = title;
         this.content = content;
         this.createdDate = createdDate;
         this.updatedDate = updatedDate;
         this.user = user;
+        this.thumbnail = thumbnail;
     }
 
     public void setCreatedDateNow() {
