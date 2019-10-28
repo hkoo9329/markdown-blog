@@ -21,8 +21,9 @@
     <div class="container-fluid">
         <div class="row">
             <div id="posting_box" class="col-md-4" th:each="board : ${boardList}">
-                <a class="thumbnail" th:href="'/board/page?idx='+${board.idx}"><img src="/images/no-image.png"
-                                                                               style="width: 50%;"></a>
+                <a class="thumbnail" th:href="'/board/page?idx='+${board.idx}">
+                    <img th:src="${board.}" style="width: 50%;">
+                </a>
                 <p id="title" class="display-3 font-weight-bold" th:text="${board.title}"></p>
                 <p id="date" class="text-right" style="font-size: 15px;"
                    th:text="${board.createdDate} ? ${#temporals.format(board.createdDate,'yyyy년 MM월 dd일')} : ${board.createdDate}"></p>

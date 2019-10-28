@@ -35,15 +35,15 @@ public class Board{
     @Column
     private LocalDateTime updatedDate;
 
-    @Lob
-    private MultipartFile thumbnail;
+    @OneToOne(cascade = CascadeType.ALL)
+    private Thumbnail thumbnail;
 
     @OneToOne(fetch = FetchType.LAZY)
     private User user;
 
     @Builder
     public Board(String title, String content, LocalDateTime createdDate,
-                 LocalDateTime updatedDate, User user, MultipartFile thumbnail) throws IOException {
+                 LocalDateTime updatedDate, User user, Thumbnail thumbnail) throws IOException {
         this.title = title;
         this.content = content;
         this.createdDate = createdDate;

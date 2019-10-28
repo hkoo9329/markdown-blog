@@ -3,6 +3,7 @@ package com.hkoo.markdownblog.controller.api;
 import com.hkoo.markdownblog.domain.Board;
 import com.hkoo.markdownblog.repository.BoardRepository;
 import com.hkoo.markdownblog.repository.UserRepository;
+import com.hkoo.markdownblog.service.BoardService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -34,6 +35,9 @@ public class BoardApiController {
     @Autowired
     private BoardRepository boardRepository;
 
+    @Autowired
+    private BoardService boardService;
+
     @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<?> getBoards(@PageableDefault Pageable pageable) {
         Page<Board> boards = boardRepository.findAll(pageable);
@@ -49,15 +53,13 @@ public class BoardApiController {
     public ResponseEntity<?> postBoard(@RequestParam(value = "title") String title,
                                        @RequestParam(value = "content") String content,
                                        @RequestParam(value = "user") String userIdx,
-                                       @RequestParam(value = "thumbnail") MultipartFile multipartFile) throws IOException {
+                                       @RequestParam(value = "thumbnail") MultipartFile multipartFile) throws Exception {
         Board board = Board.builder()
                 .title(title)
                 .content(content)
                 .user(userRepository.getOne(Long.valueOf(userIdx)))
-                .thumbnail(multipartFile)
                 .build();
-        board.setCreatedDateNow();
-        boardRepository.save(board);
+        boardService.insertBoard(board,multipartFile);
         return new ResponseEntity<>("{}", HttpStatus.CREATED);
     }
 

@@ -1,6 +1,8 @@
 package com.hkoo.markdownblog.service;
 
+import com.hkoo.markdownblog.commons.FileUtils;
 import com.hkoo.markdownblog.domain.Board;
+import com.hkoo.markdownblog.domain.Thumbnail;
 import com.hkoo.markdownblog.repository.BoardRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -8,12 +10,24 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 @Service
 public class BoardServiceImp implements BoardService {
 
     @Autowired
     private BoardRepository boardRepository;
+
+    @Autowired
+    private FileUtils fileUtils;
+
+    @Override
+    public void insertBoard(Board board, MultipartFile multipartFile) throws Exception{
+        Thumbnail thumbnail = fileUtils.parseFileInfo(board.getIdx(), multipartFile);
+        board.setThumbnail(thumbnail);
+        board.setCreatedDateNow();
+        boardRepository.save(board);
+    }
 
     @Override
     public Page<Board> findBoardList(Pageable pageable) {
