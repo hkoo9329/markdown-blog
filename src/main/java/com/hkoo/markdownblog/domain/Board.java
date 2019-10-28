@@ -16,7 +16,7 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @Entity
 @Table
-public class Board {
+public class Board{
 
     @Id
     @Column
@@ -36,7 +36,7 @@ public class Board {
     private LocalDateTime updatedDate;
 
     @Lob
-    private byte[] thumbnail;
+    private MultipartFile thumbnail;
 
     @OneToOne(fetch = FetchType.LAZY)
     private User user;
@@ -49,7 +49,7 @@ public class Board {
         this.createdDate = createdDate;
         this.updatedDate = updatedDate;
         this.user = user;
-        this.thumbnail = thumbnail.getBytes();
+        this.thumbnail = thumbnail;
     }
 
     public void setCreatedDateNow() {
