@@ -4,6 +4,7 @@ import com.hkoo.markdownblog.annotation.Socialuser;
 import com.hkoo.markdownblog.domain.User;
 import com.hkoo.markdownblog.domain.enums.SocialType;
 import com.hkoo.markdownblog.repository.UserRepository;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.MethodParameter;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -18,6 +19,7 @@ import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 import org.springframework.web.method.support.HandlerMethodArgumentResolver;
 import org.springframework.web.method.support.ModelAndViewContainer;
+
 
 import javax.servlet.http.HttpSession;
 import java.time.LocalDateTime;

@@ -19,7 +19,8 @@
     <div class="pull-right">
     </div>
     <br/>
-<!--    <input id="user_name" type="hidden" th:value="${user.name}"/>-->
+    <input id="user_idx" type="hidden" th:value="${user.idx}"/>
+<!--    <input id="user_name" type="hidden" th:value="${user?.name}"/>-->
     <input id="board_idx" type="hidden" th:value="${board?.idx}"/>
     <div class="pull-left">
         <a href="/board/list" class="btn btn-default">목록으로</a>
@@ -73,7 +74,8 @@
             url: '/api/boards',
             type: 'POST',
             data: jsonData,
-            contentType: "application/json",
+            contentType: "appli" +
+                "cation/json",
             dataType: "json",
             success: function () {
                 alert('저장되었습니다.');
