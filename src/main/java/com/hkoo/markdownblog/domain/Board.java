@@ -5,8 +5,10 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.persistence.*;
+import java.io.IOException;
 import java.time.LocalDateTime;
 
 @Data
@@ -33,17 +35,21 @@ public class Board {
     @Column
     private LocalDateTime updatedDate;
 
+    @Lob
+    private byte[] thumbnail;
+
     @OneToOne(fetch = FetchType.LAZY)
     private User user;
 
     @Builder
     public Board(String title, String content, LocalDateTime createdDate,
-                 LocalDateTime updatedDate, User user){
+                 LocalDateTime updatedDate, User user, MultipartFile thumbnail) throws IOException {
         this.title = title;
         this.content = content;
         this.createdDate = createdDate;
         this.updatedDate = updatedDate;
         this.user = user;
+        this.thumbnail = thumbnail.getBytes();
     }
 
     public void setCreatedDateNow() {

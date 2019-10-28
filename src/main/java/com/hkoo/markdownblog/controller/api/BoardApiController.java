@@ -14,8 +14,10 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.awt.*;
+import java.io.IOException;
 import java.util.Map;
 
 import static org.springframework.hateoas.mvc.ControllerLinkBuilder.linkTo;
@@ -33,7 +35,7 @@ public class BoardApiController {
     private BoardRepository boardRepository;
 
     @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<?> getBoards(@PageableDefault Pageable pageable){
+    public ResponseEntity<?> getBoards(@PageableDefault Pageable pageable) {
         Page<Board> boards = boardRepository.findAll(pageable);
         PageMetadata pageMetadata = new PageMetadata(pageable.getPageSize(),
                 boards.getNumber(), boards.getTotalElements());
@@ -44,27 +46,33 @@ public class BoardApiController {
     }
 
     @PostMapping
-    public ResponseEntity<?> postBoard(@RequestBody Map<String,String> map){
+    public ResponseEntity<?> postBoard(@RequestParam(value = "title") String title,
+                                       @RequestParam(value = "content") String content,
+                                       @RequestParam(value = "user") String userIdx,
+                                       @RequestParam(value = "thumbnail") MultipartFile multipartFile) throws IOException {
         Board board = Board.builder()
-                .title(map.get("title"))
-                .content(map.get("content"))
-                .user(userRepository.getOne(Long.valueOf(map.get("user"))))
+                .title(title)
+                .content(content)
+                .user(userRepository.getOne(Long.valueOf(userIdx)))
+                .thumbnail(multipartFile)
                 .build();
         board.setCreatedDateNow();
         boardRepository.save(board);
         return new ResponseEntity<>("{}", HttpStatus.CREATED);
     }
+
     @PutMapping("/{idx}")
     public ResponseEntity<?> putBoard(@PathVariable("idx") Long idx,
-                                      @RequestBody Board board){
+                                      @RequestBody Board board) {
         Board persistBoard = boardRepository.getOne(idx);
         persistBoard.update(board);
         boardRepository.save(persistBoard);
         return new ResponseEntity<>("{}", HttpStatus.OK);
     }
+
     @DeleteMapping("/{idx}")
-    public ResponseEntity<?> deleteBoard(@PathVariable("idx")Long idx){
+    public ResponseEntity<?> deleteBoard(@PathVariable("idx") Long idx) {
         boardRepository.deleteById(idx);
-        return new ResponseEntity<>("{}",HttpStatus.OK);
+        return new ResponseEntity<>("{}", HttpStatus.OK);
     }
 }
