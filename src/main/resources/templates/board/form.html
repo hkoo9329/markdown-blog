@@ -19,7 +19,8 @@
     <div class="pull-right">
     </div>
     <br/>
-<!--    <input id="user_name" type="hidden" th:value="${user.name}"/>-->
+    <!--    <input id="user_name" type="hidden" th:value="${user.name}"/>-->
+    <input id="user_idx" type="hidden" th:value="${user?.idx}"/>
     <input id="board_idx" type="hidden" th:value="${board?.idx}"/>
     <div class="pull-left">
         <a href="/board/list" class="btn btn-default">목록으로</a>
@@ -67,7 +68,8 @@
     $('#insert').click(function () {
         var jsonData = JSON.stringify({
             title: $('#board_title').val(),
-            content: editor.getValue()
+            content: editor.getValue(),
+            user: $('#user_idx').val()
         });
         $.ajax({
             url: '/api/boards',
@@ -108,7 +110,7 @@
     });
     $('#delete').click(function () {
         $.ajax({
-            url: '/api/boards/'+ $('#board_idx').val(),
+            url: '/api/boards/' + $('#board_idx').val(),
             type: 'DELETE',
             success: function () {
                 alert('삭제되었습니다.');

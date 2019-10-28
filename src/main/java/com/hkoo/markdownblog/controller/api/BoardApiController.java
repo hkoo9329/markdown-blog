@@ -2,6 +2,8 @@ package com.hkoo.markdownblog.controller.api;
 
 import com.hkoo.markdownblog.domain.Board;
 import com.hkoo.markdownblog.repository.BoardRepository;
+import com.hkoo.markdownblog.repository.UserRepository;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -14,13 +16,18 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.awt.*;
+import java.util.Map;
 
 import static org.springframework.hateoas.mvc.ControllerLinkBuilder.linkTo;
 import static org.springframework.hateoas.mvc.ControllerLinkBuilder.methodOn;
 
+@Slf4j
 @RestController
 @RequestMapping("/api/boards")
 public class BoardApiController {
+
+    @Autowired
+    private UserRepository userRepository;
 
     @Autowired
     private BoardRepository boardRepository;
@@ -37,7 +44,12 @@ public class BoardApiController {
     }
 
     @PostMapping
-    public ResponseEntity<?> postBoard(@RequestBody Board board){
+    public ResponseEntity<?> postBoard(@RequestBody Map<String,String> map){
+        Board board = Board.builder()
+                .title(map.get("title"))
+                .content(map.get("content"))
+                .user(userRepository.getOne(Long.valueOf(map.get("user"))))
+                .build();
         board.setCreatedDateNow();
         boardRepository.save(board);
         return new ResponseEntity<>("{}", HttpStatus.CREATED);
