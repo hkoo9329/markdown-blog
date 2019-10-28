@@ -18,7 +18,7 @@ public class FileUtils {
         }
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyyMMdd");
         ZonedDateTime current = ZonedDateTime.now();
-        String path = "/src/main/resources/static/images/thumbnail/"+current.format(formatter);
+        String path = "src/main/resources/static/images/thumbnail/"+current.format(formatter);
         File file = new File(path);
         if (file.exists() == false){
             file.mkdirs();
@@ -45,7 +45,7 @@ public class FileUtils {
                     .board_idx(boardIdx)
                     .fileSize(multipartFile.getSize())
                     .originalFileName(multipartFile.getOriginalFilename())
-                    .storedFilePath(path + "/" + newFileName)
+                    .storedFilePath(path.replace("src/main/resources/static/","") + "/" + newFileName)
                     .build();
             file = new File(path + "/" + newFileName);
             multipartFile.transferTo(file);
