@@ -100,16 +100,23 @@
 </script>
 <script th:if="${board?.idx}">
     $('#update').click(function () {
-        var jsonData = JSON.stringify({
-            title: $('#board_title').val(),
-            content: editor.getValue()
-        });
+        var form = $('#formData')[0];
+        var formData = new FormData(form);
+        formData.append("title",$('#board_title').val());
+        formData.append("content",editor.getValue());
+        formData.append("user",$('#user_idx').val());
+        // var jsonData = JSON.stringify({
+        //     title: $('#board_title').val(),
+        //     content: editor.getValue()
+        // });
         $.ajax({
             url: '/api/boards/' + $('#board_idx').val(),
             type: 'PUT',
-            data: jsonData,
-            contentType: "application/json",
-            dataType: "json",
+            enctype: 'multipart/form-data',
+            data: formData,
+            contentType: false,
+            processData: false,
+            cache: false,
             success: function () {
                 alert('수정 되었습니다.');
                 window.location.replace("/board/list");

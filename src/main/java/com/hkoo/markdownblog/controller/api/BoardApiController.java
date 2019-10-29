@@ -64,11 +64,15 @@ public class BoardApiController {
     }
 
     @PutMapping("/{idx}")
-    public ResponseEntity<?> putBoard(@PathVariable("idx") Long idx,
-                                      @RequestBody Board board) {
-        Board persistBoard = boardRepository.getOne(idx);
-        persistBoard.update(board);
-        boardRepository.save(persistBoard);
+    public ResponseEntity<?> putBoard(@RequestParam(value = "title") String title,@PathVariable("idx") Long idx) throws Exception {
+        log.info("idx : "+idx);
+//        log.info("title : "  + title);
+//        Board persistBoard = boardRepository.getOne(idx);
+//        Board board = Board.builder()
+//                .title(title)
+//                .content(content)
+//                .build();
+//       boardService.updateBoard(persistBoard,board,multipartFile);
         return new ResponseEntity<>("{}", HttpStatus.OK);
     }
 

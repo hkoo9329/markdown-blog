@@ -30,6 +30,14 @@ public class BoardServiceImp implements BoardService {
     }
 
     @Override
+    public void updateBoard(Board persistBoard, Board newBoard, MultipartFile multipartFile) throws Exception {
+        Thumbnail thumbnail = fileUtils.parseFileInfo(persistBoard.getIdx(), multipartFile);
+        persistBoard.update(newBoard);
+        persistBoard.setThumbnail(thumbnail);
+        boardRepository.save(persistBoard);
+    }
+
+    @Override
     public Page<Board> findBoardList(Pageable pageable) {
         if (pageable.getSort().isUnsorted()) {
             pageable = PageRequest.of(pageable.getPageNumber() <= 0 ? 0 : pageable.getPageNumber() - 1,
