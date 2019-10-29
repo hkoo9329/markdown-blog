@@ -90,7 +90,7 @@
             cache: false,
             success: function () {
                 alert('저장되었습니다.');
-                location.href = '/board/list';
+                window.location.replace("/board/list");
             },
             error: function () {
                 alert('저장 실패');
@@ -112,7 +112,7 @@
             dataType: "json",
             success: function () {
                 alert('수정 되었습니다.');
-                location.href = '/board/list';
+                window.location.replace("/board/list");
             },
             error: function () {
                 alert('수정 실패');
@@ -125,7 +125,7 @@
             type: 'DELETE',
             success: function () {
                 alert('삭제되었습니다.');
-                location.href = '/board/list';
+                window.location.replace("/board/list");
             },
             error: function () {
                 alert('삭제 실패');

@@ -45,7 +45,7 @@ public class FileUtils {
                     .board_idx(boardIdx)
                     .fileSize(multipartFile.getSize())
                     .originalFileName(multipartFile.getOriginalFilename())
-                    .storedFilePath(path.replace("src/main/resources/static/","") + "/" + newFileName)
+                    .storedFilePath(path.replace("src/main/resources/static","") + "/" + newFileName)
                     .build();
             file = new File(path + "/" + newFileName);
             multipartFile.transferTo(file);
