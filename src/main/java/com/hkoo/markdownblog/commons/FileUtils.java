@@ -17,6 +17,7 @@ import java.time.format.DateTimeFormatter;
 @Slf4j
 @Component
 public class FileUtils {
+    private final String PREFIX =  "src/main/resources/static";
 
     public Thumbnail parseFileInfo(Long boardIdx, MultipartFile multipartFile)throws Exception{
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyyMMdd");
@@ -48,12 +49,17 @@ public class FileUtils {
                     .board_idx(boardIdx)
                     .fileSize(multipartFile.getSize())
                     .originalFileName(multipartFile.getOriginalFilename())
-                    .storedFilePath(path.replace("src/main/resources/static","") + "/" + newFileName)
+                    .storedFilePath(path.replace(PREFIX,"") + "/" + newFileName)
                     .build();
             file = new File(path + "/" + newFileName);
             multipartFile.transferTo(file);
             return thumbnail;
         }
         return null;
+    }
+    public void oldThumbnailDelete(Thumbnail thumbnail){
+        String path = thumbnail.getStoredFilePath();
+        File file = new File(PREFIX + path);
+        file.delete();
     }
 }

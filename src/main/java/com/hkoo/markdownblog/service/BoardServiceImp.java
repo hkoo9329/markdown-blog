@@ -15,6 +15,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.persistence.Lob;
+import java.io.File;
 
 @Slf4j
 @Service
@@ -46,7 +47,14 @@ public class BoardServiceImp implements BoardService {
         if (multipartFile.isEmpty() == false){
             Thumbnail thumbnail = fileUtils.parseFileInfo(persistBoard.getIdx(), multipartFile);
             thumbnailRepository.save(thumbnail);
-            persistBoard.setThumbnail(thumbnail);
+            if (persistBoard.getThumbnail() != null){
+                Thumbnail temp = persistBoard.getThumbnail();
+                persistBoard.setThumbnail(thumbnail);
+                fileUtils.oldThumbnailDelete(temp);
+                thumbnailRepository.delete(temp);
+            }else {
+                persistBoard.setThumbnail(thumbnail);
+            }
         }
         persistBoard.update(newBoard);
         persistBoard.updateDateTime();
@@ -55,9 +63,12 @@ public class BoardServiceImp implements BoardService {
 
     @Override
     public void deleteBoard(Board board) throws Exception {
-        Long id = board.getThumbnail().getIdx();
+        Thumbnail thumbnail = board.getThumbnail();
         boardRepository.delete(board);
-        thumbnailRepository.deleteById(id);
+        if (thumbnail != null){
+            fileUtils.oldThumbnailDelete(thumbnail);
+            thumbnailRepository.delete(thumbnail);
+        }
     }
 
 
@@ -75,7 +86,4 @@ public class BoardServiceImp implements BoardService {
         return boardRepository.findById(idx).orElse(new Board());
     }
 
-    public void oldThumbnailDelete(Thumbnail thumbnail){
-        
-    }
 }
