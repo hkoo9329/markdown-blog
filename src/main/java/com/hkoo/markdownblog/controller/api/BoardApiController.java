@@ -2,6 +2,7 @@ package com.hkoo.markdownblog.controller.api;
 
 import com.hkoo.markdownblog.domain.Board;
 import com.hkoo.markdownblog.repository.BoardRepository;
+import com.hkoo.markdownblog.repository.ThumbnailRepository;
 import com.hkoo.markdownblog.repository.UserRepository;
 import com.hkoo.markdownblog.service.BoardService;
 import lombok.extern.slf4j.Slf4j;
@@ -38,6 +39,7 @@ public class BoardApiController {
     @Autowired
     private BoardService boardService;
 
+
     @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<?> getBoards(@PageableDefault Pageable pageable) {
         Page<Board> boards = boardRepository.findAll(pageable);
@@ -63,22 +65,23 @@ public class BoardApiController {
         return new ResponseEntity<>("{}", HttpStatus.CREATED);
     }
 
-    @PutMapping("/{idx}")
-    public ResponseEntity<?> putBoard(@RequestParam(value = "title") String title,@PathVariable("idx") Long idx) throws Exception {
-        log.info("idx : "+idx);
-//        log.info("title : "  + title);
-//        Board persistBoard = boardRepository.getOne(idx);
-//        Board board = Board.builder()
-//                .title(title)
-//                .content(content)
-//                .build();
-//       boardService.updateBoard(persistBoard,board,multipartFile);
+    @PostMapping("update/{idx}")
+    public ResponseEntity<?> updateBoard(@PathVariable("idx") Long idx,
+                                         @RequestParam(value = "title") String title,
+                                         @RequestParam(value = "content") String content,
+                                         @RequestParam(value = "thumbnail") MultipartFile multipartFile) throws Exception {
+        Board persistBoard = boardRepository.getOne(idx);
+        Board board = Board.builder()
+                .title(title)
+                .content(content)
+                .build();
+       boardService.updateBoard(persistBoard,board,multipartFile);
         return new ResponseEntity<>("{}", HttpStatus.OK);
     }
 
     @DeleteMapping("/{idx}")
-    public ResponseEntity<?> deleteBoard(@PathVariable("idx") Long idx) {
-        boardRepository.deleteById(idx);
+    public ResponseEntity<?> deleteBoard(@PathVariable("idx") Long idx) throws Exception {
+        boardService.deleteBoard(boardRepository.getOne(idx));
         return new ResponseEntity<>("{}", HttpStatus.OK);
     }
 }

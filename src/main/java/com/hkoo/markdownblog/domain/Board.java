@@ -35,7 +35,7 @@ public class Board{
     @Column
     private LocalDateTime updatedDate;
 
-    @OneToOne(cascade = CascadeType.ALL)
+    @OneToOne
     private Thumbnail thumbnail;
 
     @OneToOne(fetch = FetchType.LAZY)
@@ -54,6 +54,10 @@ public class Board{
 
     public void setCreatedDateNow() {
         this.createdDate = LocalDateTime.now();
+    }
+
+    public void updateDateTime(){
+        this.updatedDate = LocalDateTime.now();
     }
 
     public void update(Board board) {

@@ -8,6 +8,7 @@ import org.springframework.web.multipart.MultipartFile;
 public interface BoardService {
     void insertBoard(Board board, MultipartFile multipartFile) throws Exception;
     void updateBoard(Board persistBoard, Board newBoard, MultipartFile multipartFile) throws Exception;
+    void deleteBoard(Board board) throws Exception;
     Page<Board> findBoardList(Pageable pageable);
     Board findBoardByIdx(Long idx);
 }

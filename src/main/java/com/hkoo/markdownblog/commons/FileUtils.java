@@ -1,7 +1,10 @@
 package com.hkoo.markdownblog.commons;
 
+import com.hkoo.markdownblog.domain.Board;
 import com.hkoo.markdownblog.domain.Thumbnail;
 import com.hkoo.markdownblog.repository.BoardRepository;
+import com.hkoo.markdownblog.repository.ThumbnailRepository;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.util.ObjectUtils;
@@ -11,22 +14,11 @@ import java.io.File;
 import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
 
+@Slf4j
 @Component
 public class FileUtils {
 
-    @Autowired
-    private BoardRepository boardRepository;
-
     public Thumbnail parseFileInfo(Long boardIdx, MultipartFile multipartFile)throws Exception{
-        if (ObjectUtils.isEmpty(multipartFile)){
-            return null;
-        }else{
-            Thumbnail persistThumbnail = boardRepository.getOne(boardIdx).getThumbnail();
-            if (persistThumbnail.getStoredFilePath() != null){
-                File file = new File(persistThumbnail.getStoredFilePath());
-                file.delete();
-            }
-        }
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyyMMdd");
         ZonedDateTime current = ZonedDateTime.now();
         String path = "src/main/resources/static/images/thumbnail/"+current.format(formatter);
