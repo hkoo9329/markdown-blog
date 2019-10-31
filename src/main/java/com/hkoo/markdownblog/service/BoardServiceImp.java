@@ -49,8 +49,8 @@ public class BoardServiceImp implements BoardService {
             thumbnailRepository.save(thumbnail);
             if (persistBoard.getThumbnail() != null){
                 Thumbnail temp = persistBoard.getThumbnail();
-                persistBoard.setThumbnail(thumbnail);
-                fileUtils.oldThumbnailDelete(temp);
+                persistBoard.setThumbnail(thumbnail); // One to one 관계에 있기 때문에 set으로 다른 썸네일과 관게를 설정후에 삭제해야함
+                fileUtils.oldThumbnailDelete(temp); // 이전 썸네일 파일 삭제
                 thumbnailRepository.delete(temp);
             }else {
                 persistBoard.setThumbnail(thumbnail);
