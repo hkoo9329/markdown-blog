@@ -29,7 +29,7 @@
                          th:src="@{${thumbnail_image}}" class="img-fluid img-thumbnail" style="height: 250px;">
                 </a>
                 <p id="title" class="display-3 font-weight-bold" th:text="${board.title}"></p>
-                <p id="user_name" class="text-right" th:text="${user.name}" style="color: #5131F1;font-size: 15px;"></p>
+                <p id="user_name" class="text-right" th:text="${board.user.name}" style="color: #5131F1;font-size: 15px;"></p>
                 <p id="date" class="text-right" style="font-size: 15px;"
                    th:text="${board.createdDate} ? ${#temporals.format(board.createdDate,'yyyy년 MM월 dd일')} : ${board.createdDate}"></p>
             </div>
