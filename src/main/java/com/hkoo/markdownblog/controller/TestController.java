@@ -9,4 +9,9 @@ public class TestController {
     public String tset(){
         return "home";
     }
+
+    @RequestMapping("/test/side")
+    public String sidebarTest(){
+        return "/layout/test_sidebar";
+    }
 }
