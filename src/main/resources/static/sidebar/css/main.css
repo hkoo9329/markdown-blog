@@ -85,12 +85,12 @@ footer {
 
 #wrapper #sidebar-nav,
 #wrapper .main {
-  padding-top: 80px; }
+  padding-top: 90px; }
 
 @media screen and (max-width: 767px) {
   #wrapper #sidebar-nav,
   #wrapper .main {
-    padding-top: 130px; } }
+    padding-top: 140px; } }
 
 .layout-fullwidth #wrapper .sidebar {
   left: -260px; }
@@ -1070,7 +1070,7 @@ ul.activity-list > li {
     width: 50%;
     padding: 40px 60px; }
     .auth-box.lockscreen .logo {
-      margin-bottom: 30px; }
+      margin-bottom: 10px; }
     .auth-box.lockscreen .user {
       margin-bottom: 30px; }
       .auth-box.lockscreen .user .name {

@@ -42,7 +42,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
                 .authorizeRequests()
                 .antMatchers("/", "/oauth2/**", "/login/**", "/css/**", "/images/**", "/js/**", "/console/**","/loginFailure","/signUp").permitAll()
                 .antMatchers("/api/**").permitAll()// api 접근은 모두 허용
-                .antMatchers("/test/**").permitAll()
+                .antMatchers("/test/**","/sidebar/**").permitAll()
                 .antMatchers("/google").hasAuthority(GOOGLE.getRoleType())
                 .antMatchers("/kakao").hasAuthority(KAKAO.getRoleType())
                 .antMatchers("/github").hasAuthority(GITHUB.getRoleType())
