@@ -17,12 +17,12 @@ import java.time.format.DateTimeFormatter;
 @Slf4j
 @Component
 public class FileUtils {
-    private final String PREFIX =  "src/main/resources/static";
+    private final String PREFIX =  "/src/main/resources/static";
 
     public Thumbnail parseFileInfo(Long boardIdx, MultipartFile multipartFile)throws Exception{
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyyMMdd");
         ZonedDateTime current = ZonedDateTime.now();
-        String path = "src/main/resources/static/images/thumbnail/"+current.format(formatter);
+        String path = "/src/main/resources/static/images/thumbnail/"+current.format(formatter);
         File file = new File(path);
         if (file.exists() == false){
             file.mkdirs();
