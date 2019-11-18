@@ -34,7 +34,7 @@
 
             <div id="navbar-menu">
                 <ul class="nav navbar-nav navbar-right">
-                    <li class="dropdown">
+                    <li class="dropdown" th:if="${user?.idx}">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                             <img th:src="@{/images/temp_user.jpg}" class="img-circle" alt="AVatar">
                             <span>user name</span>
@@ -44,7 +44,10 @@
                             <li><a href="/logout"><i class="lnr lnr-exit"></i> <span>Logout</span></a></li>
                         </ul>
                     </li>
-                    <!--                        <a th:if="!${user?idx}" href="/login" style="margin-top: auto;">로그인</a>-->
+                    <li th:if="!${user?.idx}">
+                        <a href="/login" style="display: inline-block;">로그인</a>
+                        <a href="/signUp" style="display: inline-block;">회원가입</a>
+                    </li>
                 </ul>
             </div>
         </div>
@@ -77,7 +80,52 @@
         <div class="main-content">
             <div class="container-fluid">
                 <!-- OVERVIEW -->
-                <h2>TEST</h2>
+                <div class="page-header">
+                    <h1>게시글 목록</h1>
+                </div>
+                <div class="pull-right" style="width:100px;margin:10px 0;">
+                    <a href="/board/page" class="btn btn-primary btn-block">등록</a>
+                    <a href="/logout">logout</a><!-- 임시 로그아웃 버튼-->
+                </div>
+                <br/><br/><br/><br/>
+                <input id="user" type="hidden" th:object="${user}"/>
+                <!--    섬네일 포스팅 방식으로 변경    -->
+                <div class="container-fluid">
+
+                    <div class="row">
+                        <div id="posting_box" class="col-md-4" th:each="board : ${boardList}">
+                            <a class="thumbnail" th:href="'/board/page?idx='+${board.idx}">
+                                <img th:with="thumbnail_image=${board.thumbnail?.storedFilePath}?${board.thumbnail.storedFilePath}:'/images/no-image.png'"
+                                     th:src="@{${thumbnail_image}}" class="img-fluid img-thumbnail" style="height: 250px;">
+                            </a>
+                            <p id="title" class="display-3 font-weight-bold" th:text="${board.title}"></p>
+                            <p id="user_name" class="text-right" th:text="${board.user.name}" style="color: #5131F1;font-size: 15px;"></p>
+                            <p id="date" class="text-right" style="font-size: 15px;"
+                               th:text="${board.createdDate} ? ${#temporals.format(board.createdDate,'yyyy년 MM월 dd일')} : ${board.createdDate}"></p>
+                        </div>
+                    </div>
+                </div>
+                <br/>
+                <!-- Pagination -->
+                <nav aria-label="Page navigation" style="text-align:center;">
+                    <ul class="pagination"
+                        th:with="startNumber=${T(Math).floor(boardList.number/10)}*10+1, endNumber=(${boardList.totalPages} > ${startNumber}+9) ? ${startNumber}+9 : ${boardList.totalPages}">
+                        <li><a aria-label="Previous" href="/board/list?page=1">&laquo;</a></li>
+                        <li th:style="${boardList.first} ? 'display:none'">
+                            <a th:href="@{/board/list(page=${boardList.number})}">&lsaquo;</a>
+                        </li>
+
+                        <li th:each="page :${#numbers.sequence(startNumber, endNumber)}"
+                            th:class="(${page} == ${boardList.number}+1) ? 'active'">
+                            <a th:href="@{/board/list(page=${page})}" th:text="${page}"><span class="sr-only"></span></a>
+                        </li>
+
+                        <li th:style="${boardList.last} ? 'display:none'">
+                            <a th:href="@{/board/list(page=${boardList.number}+2)}">&rsaquo;</a>
+                        </li>
+                        <li><a aria-label="Next" th:href="@{/board/list(page=${boardList.totalPages})}">&raquo;</a></li>
+                    </ul>
+                </nav>
             </div>
         </div>
     </div>
