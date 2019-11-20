@@ -49,7 +49,7 @@ public class FileUtils {
                     .board_idx(boardIdx)
                     .fileSize(multipartFile.getSize())
                     .originalFileName(multipartFile.getOriginalFilename())
-                    .storedFilePath(path.replace(PREFIX,"") + "/" + newFileName)
+                    .storedFilePath(path + "/" + newFileName)
                     .build();
             file = new File(path + "/" + newFileName);
             multipartFile.transferTo(file);
