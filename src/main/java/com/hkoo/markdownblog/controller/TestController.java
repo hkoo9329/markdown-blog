@@ -27,6 +27,6 @@ public class TestController {
 
     @RequestMapping("/test/side")
     public String sidebarTest(){
-        return "/layout/test_sidebar";
+        return "layout/test_sidebar";
     }
 }

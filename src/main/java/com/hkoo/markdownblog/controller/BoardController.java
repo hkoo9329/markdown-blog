@@ -28,7 +28,7 @@ public class BoardController {
         User user = formUser != null ? formUser : socialUser;
         model.addAttribute("user",user);
         model.addAttribute("board", boardService.findBoardByIdx(idx));
-        return "/board/form";
+        return "board/form";
     }
 
     @GetMapping("/list")
@@ -36,6 +36,6 @@ public class BoardController {
         User user = formUser != null ? formUser : socialUser;
         model.addAttribute("user",user);
         model.addAttribute("boardList", boardService.findBoardList(pageable));
-        return "/board/list";
+        return "board/list";
     }
 }
