@@ -17,7 +17,7 @@ import java.time.format.DateTimeFormatter;
 @Slf4j
 @Component
 public class FileUtils {
-    private final String PREFIX =  "src/main/resources/static";
+    private final String PREFIX =  "src/main/resources/static/";
 
     public Thumbnail parseFileInfo(Long boardIdx, MultipartFile multipartFile)throws Exception{
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyyMMdd");
