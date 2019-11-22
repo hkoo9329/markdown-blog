@@ -14,7 +14,7 @@ public class LoginController {
 
     @RequestMapping("/loginSuccess")
     public String loginComplete(){
-        return "redirect:board/list";
+        return "redirect:/";
     }
 
     @RequestMapping("/signUp")

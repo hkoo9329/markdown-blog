@@ -12,12 +12,12 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
-public class TestController {
+public class HomeController {
 
     @Autowired
     private BoardService boardService;
 
-    @RequestMapping("/")
+    @RequestMapping({"/","/home"})
     public String tset(@PageableDefault Pageable pageable, @AuthenticationPrincipal User formUser, @Socialuser User socialUser, Model model){
         User user = formUser != null ? formUser : socialUser;
         model.addAttribute("user",user);

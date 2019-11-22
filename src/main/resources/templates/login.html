@@ -46,7 +46,7 @@
             cache: false,
             data: sign_in_form,
             success: function (data) {
-                window.location.replace("/board/list");
+                window.location.replace("/home");
             },
             error: function (request, status, error) {
                 console.error("code:" + request.status + "\n" + "message:" + request.responseText + "\n" + "error:" + error);
