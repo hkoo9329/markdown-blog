@@ -25,8 +25,8 @@
         <div class="row">
             <div id="posting_box" class="col-md-4" th:each="board : ${boardList}">
                 <a class="thumbnail" th:href="'/board/page?idx='+${board.idx}">
-                    <img th:with="thumbnail_image=${board.thumbnail?.storedFilePath}?${board.thumbnail.storedFilePath}:'/images/no-image.png'"
-                         th:src="@{'/'+${thumbnail_image}}" class="img-fluid img-thumbnail" style="height: 250px;">
+                    <img id="thumbnail" th:with="thumbnail_image=${board.thumbnail?.storedFilePath}?${board.thumbnail.storedFilePath}:'/images/no-image.png'"
+                         th:src="@{${thumbnail_image}}" class="img-fluid img-thumbnail" style="height: 250px;">
                 </a>
                 <p id="title" class="display-3 font-weight-bold" th:text="${board.title}"></p>
                 <p id="user_name" class="text-right" th:text="${board.user.name}" style="color: #5131F1;font-size: 15px;"></p>
@@ -67,7 +67,6 @@
 <script th:src="@{/js/jquery.min.js}"></script>
 <script>
     var emailChecker = false;
-
     $(document).ready(function () {
         $.ajax({
             type: 'GET',
