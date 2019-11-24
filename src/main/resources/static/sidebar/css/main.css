@@ -69,7 +69,9 @@ footer {
   float: left;
   background-color: #2B333E;
   position: fixed;
-  left: 0; }
+  left: 0;
+
+}
 
 #wrapper .main {
   -webkit-transition: all 0.3s ease-in-out;

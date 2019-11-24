@@ -19,7 +19,6 @@
     <div class="pull-right">
     </div>
     <br/>
-    <!--    <input id="user_name" type="hidden" th:value="${user.name}"/>-->
     <input id="user_idx" type="hidden" th:value="${user?.idx}"/>
     <input id="board_idx" type="hidden" th:value="${board?.idx}"/>
     <div class="pull-left">
@@ -27,8 +26,11 @@
     </div>
     <div class="pull-right">
         <button th:if="!${board?.idx}" type="button" class="btn btn-primary" id="insert">저장</button>
-        <button th:if="${board?.idx}" type="button" class="btn btn-info" id="update">수정</button>
-        <button th:if="${board?.idx}" type="button" class="btn btn-danger" id="delete">삭제</button>
+        <div th:if="${board?.user?.idx} == ${user?.idx}">
+            <button type="button" class="btn btn-primary" id="readMode">읽기 모드</button>
+            <button th:if="${board?.idx}" type="button" class="btn btn-info" id="update">수정</button>
+            <button th:if="${board?.idx}" type="button" class="btn btn-danger" id="delete">삭제</button>
+        </div>
     </div>
     <br/><br/>
     <div>
@@ -46,7 +48,7 @@
         <form><textarea id="code" class="col-md-1 form-control input-sm" th:text="${board?.content}"></textarea></form>
     </div>
     <div id="out"></div>
-    
+
 </div>
 <script th:src="@{/js/jquery.min.js}"></script>
 <script th:src="@{/markdown/lib/markdown-it.js}"></script>
@@ -67,10 +69,24 @@
 <script th:src="@{/markdown/lib/rawdeflate.js}"></script>
 <script th:src="@{/markdown/lib/sweetalert.min.js}"></script>
 <script th:src="@{/markdown/index.js}"></script>
+<script th:inline="javascript">
+    var login_user = [[${user?.idx}]];
+    var editor_user = [[${board?.user?.idx}]];
+</script>
 <script>
+    var user_idx = $('#user_idx').val();
     $(document).ready(function () {
+        if (login_user != editor_user){
+            $('#in').hide();
+        }
         editor.setValue(editor.getValue());
     });
+
+    $('#readMode').click(function () {
+        $('#in').toggle('slow');
+    });
+
+
 </script>
 <script th:if="!${board?.idx}">
 
