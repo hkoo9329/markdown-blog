@@ -14,7 +14,8 @@
     <nav class="navbar navbar-default navbar-fixed-top">
         <div class="brand">
             <a href="/">
-                <img th:src="@{/images/logo.png}" style="width: 130px;height: 35px;" alt="Logo" class="img-responsive logo">
+                <img th:src="@{/images/logo.png}" style="width: 130px;height: 35px;" alt="Logo"
+                     class="img-responsive logo">
             </a>
         </div>
         <div class="container-fluid">
@@ -37,16 +38,19 @@
                     <li class="dropdown" th:if="${user?.idx}">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                             <img th:src="@{/images/temp_user.jpg}" class="img-circle" alt="AVatar">
-                            <span>user name</span>
+                            <span th:text="${user?.name}"></span>
                             <i class="icon-submenu lnr lnr-chevron-down"></i>
                         </a>
                         <ul class="dropdown-menu">
-                            <li><a href="/logout"><i class="lnr lnr-exit"></i> <span>Logout</span></a></li>
+                            <li><a th:href="@{/board/page}"><i class="lnr lnr-exit"></i> <span>글쓰기</span></a></li>
+                            <li><a th:href="@{/logout}"><i class="lnr lnr-exit"></i> <span>로그아웃</span></a></li>
                         </ul>
                     </li>
                     <li th:if="!${user?.idx}">
-                        <a href="/login" style="display: inline-block;">로그인</a>
-                        <a href="/signUp" style="display: inline-block;">회원가입</a>
+                        <div class="pull-right" style="margin-top: 20px;">
+                            <a href="/login" class="btn btn-sm">로그인</a>
+                            <a href="/signUp" class="btn btn-sm">회원가입</a>
+                        </div>
                     </li>
                 </ul>
             </div>
@@ -58,10 +62,12 @@
         <div class="sidebar-scroll">
             <nav>
                 <ul class="nav">
-                    <li><a href="/" class="active"><i class="lnr lnr-home"></i> <span>Dashboard</span></a></li>
-                    <li><a href="#" class=""><i class="lnr lnr-code"></i> <span>Elements</span></a></li>
+                    <li><a href="/" class=""><i class="lnr lnr-home"></i> <span>메인페이지</span></a></li>
+                    <li><a href="#" class=""><i class="lnr lnr-code"></i> <span>잡동사니</span></a></li>
                     <li>
-                        <a href="#subPages" data-toggle="collapse" class="collapsed"><i class="lnr lnr-file-empty"></i><span>Pages</span><i class="icon-submenu lnr lnr-chevron-left"></i></a>
+                        <a href="#subPages" data-toggle="collapse" class="collapsed"><i
+                                class="lnr lnr-file-empty"></i><span>게시글</span><i
+                                class="icon-submenu lnr lnr-chevron-left"></i></a>
                         <div id="subPages" class="collapse ">
                             <ul class="nav">
                                 <li><a href="#" class="">TESTPAGE 준비중</a></li>
@@ -95,10 +101,12 @@
                         <div id="posting_box" class="col-md-4" th:each="board : ${boardList}">
                             <a class="thumbnail" th:href="'/board/page?idx='+${board.idx}">
                                 <img th:with="thumbnail_image=${board.thumbnail?.storedFilePath}?${board.thumbnail.storedFilePath}:'/images/no-image.png'"
-                                     th:src="@{${thumbnail_image}}" class="img-fluid img-thumbnail" style="height: 250px;">
+                                     th:src="@{${thumbnail_image}}" class="img-fluid img-thumbnail"
+                                     style="height: 250px;">
                             </a>
                             <p id="title" class="display-3 font-weight-bold" th:text="${board.title}"></p>
-                            <p id="user_name" class="text-right" th:text="${board.user.name}" style="color: #5131F1;font-size: 15px;"></p>
+                            <p id="user_name" class="text-right" th:text="${board.user.name}"
+                               style="color: #5131F1;font-size: 15px;"></p>
                             <p id="date" class="text-right" style="font-size: 15px;"
                                th:text="${board.createdDate} ? ${#temporals.format(board.createdDate,'yyyy년 MM월 dd일')} : ${board.createdDate}"></p>
                         </div>
@@ -116,7 +124,8 @@
 
                         <li th:each="page :${#numbers.sequence(startNumber, endNumber)}"
                             th:class="(${page} == ${boardList.number}+1) ? 'active'">
-                            <a th:href="@{/board/list(page=${page})}" th:text="${page}"><span class="sr-only"></span></a>
+                            <a th:href="@{/board/list(page=${page})}" th:text="${page}"><span
+                                    class="sr-only"></span></a>
                         </li>
 
                         <li th:style="${boardList.last} ? 'display:none'">
