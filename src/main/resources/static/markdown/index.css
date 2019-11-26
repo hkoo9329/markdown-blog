@@ -36,4 +36,11 @@
     left: 0;
     border-left: 0 !important;
 }
-
+.CodeMirror {
+    border: 1px solid #eee;
+    height: 100px;
+}
+.CodeMirror-scroll {
+    overflow-y: hidden;
+    overflow-x: auto;
+}
