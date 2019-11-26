@@ -22,24 +22,27 @@
     <input id="user_idx" type="hidden" th:value="${user?.idx}"/>
     <input id="board_idx" type="hidden" th:value="${board?.idx}"/>
     <div class="pull-left">
-        <a href="/board/list" class="btn btn-default">목록으로</a>
+        <div th:if="!${board?.idx} or ${board?.user?.idx} == ${user?.idx}">
+            <label>썸네일 등록</label>
+            <form method="post" enctype="multipart/form-data" id="formData">
+                <input class="btn" id="thumbnail" type="file" name="thumbnail">
+            </form>
+        </div>
     </div>
     <div class="pull-right">
-        <button th:if="!${board?.idx}" type="button" class="btn btn-primary" id="insert">저장</button>
+        <!-- board가 생성된적이 없을때만 보이도록 설정 -->
+        <div th:if="!${board?.idx}">
+            <a th:href="@{/home}" class="btn btn-default">목록으로</a>
+            <button type="button" class="btn btn-primary" id="insert">저장</button>
+        </div>
         <div th:if="${board?.user?.idx} == ${user?.idx}">
+            <a th:href="@{/home}" class="btn btn-default">목록으로</a>
             <button type="button" class="btn btn-primary" id="readMode">읽기 모드</button>
             <button th:if="${board?.idx}" type="button" class="btn btn-info" id="update">수정</button>
             <button th:if="${board?.idx}" type="button" class="btn btn-danger" id="delete">삭제</button>
         </div>
     </div>
-    <br/><br/>
     <div>
-        <div class="pull-right">
-            <label>썸네일 등록</label>
-            <form method="post" enctype="multipart/form-data" id="formData">
-                <input id="thumbnail" type="file" name="thumbnail">
-            </form>
-        </div>
         <input id="board_title" type="text" class="col-md-1 form-control input-sm" th:value="${board?.title}"/>
     </div>
 </div>
@@ -47,7 +50,7 @@
     <div id="in">
         <form><textarea id="code" class="col-md-1 form-control input-sm" th:text="${board?.content}"></textarea></form>
     </div>
-    <div id="out"></div>
+    <textarea id="out"></textarea>
 
 </div>
 <script th:src="@{/js/jquery.min.js}"></script>
@@ -77,11 +80,11 @@
     var user_idx = $('#user_idx').val();
 
     $('#codes').on('keydown keyup', function () {
-       $(this).height(1).height($(this).prop('scrollHeight')+12);
+        $(this).height(1).height($(this).prop('scrollHeight') + 12);
     });
 
     $(document).ready(function () {
-        if ((login_user != editor_user)&& editor_user != null){
+        if ((login_user != editor_user) && editor_user != null) {
             $('#in').hide();
         }
         editor.setValue(editor.getValue());
