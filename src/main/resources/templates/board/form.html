@@ -75,8 +75,13 @@
 </script>
 <script>
     var user_idx = $('#user_idx').val();
+
+    $('#codes').on('keydown keyup', function () {
+       $(this).height(1).height($(this).prop('scrollHeight')+12);
+    });
+
     $(document).ready(function () {
-        if (login_user != editor_user){
+        if ((login_user != editor_user)&& editor_user != null){
             $('#in').hide();
         }
         editor.setValue(editor.getValue());

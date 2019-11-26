@@ -83,7 +83,6 @@ CodeMirrorSpellChecker({
 });
 
 var editor = CodeMirror.fromTextArea(document.getElementById('code'), {
-    mode: "spell-checker",
     backdrop: "gfm",
     lineNumbers: false,
     matchBrackets: true,
@@ -93,7 +92,10 @@ var editor = CodeMirror.fromTextArea(document.getElementById('code'), {
         "Enter": "newlineAndIndentContinueMarkdownList"
     }
 });
-
+function resize(obj){
+    editor.style.height = "1px";
+    editor.style.height = (12+editor.scrollHeight)+"px";
+}
 editor.on('change', update);
 
 function selectionChanger(selection, operator, endoperator) {
