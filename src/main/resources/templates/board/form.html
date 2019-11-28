@@ -10,14 +10,6 @@
     <link rel="stylesheet" th:href="@{/markdown/lib/github-markdown.css}">
     <link rel="stylesheet" th:href="@{/markdown/lib/sweetalert.css}">
 </head>
-<style>
-    #out.active{
-        width: 100%;
-    }
-    #out.disabled{
-        width: 50%;
-    }
-</style>
 <body>
 
 <div class="container">
@@ -38,13 +30,11 @@
         </div>
     </div>
     <div class="pull-right">
+        <a th:href="@{/home}" class="btn btn-default">목록으로</a>
         <!-- board가 생성된적이 없을때만 보이도록 설정 -->
-        <div th:if="!${board?.idx}">
-            <a th:href="@{/home}" class="btn btn-default">목록으로</a>
-            <button type="button" class="btn btn-primary" id="insert">저장</button>
-        </div>
+        <button th:if="!${board?.idx}" type="button" class="btn btn-primary" id="insert">저장</button>
+
         <div th:if="${board?.user?.idx} == ${user?.idx}">
-            <a th:href="@{/home}" class="btn btn-default">목록으로</a>
             <button type="button" class="btn btn-primary" id="readMode">읽기 모드</button>
             <button th:if="${board?.idx}" type="button" class="btn btn-info" id="update">수정</button>
             <button th:if="${board?.idx}" type="button" class="btn btn-danger" id="delete">삭제</button>
@@ -94,13 +84,13 @@
     $(document).ready(function () {
         if ((login_user != editor_user) && editor_user != null) {
             $('#in').hide();
+            $('#out').addClass("active");
         }
         editor.setValue(editor.getValue());
     });
 
     $('#readMode').click(function () {
-        $('#in').toggle('slow');
-        $('#out').toggleClass("active");
+        readMode();
     });
 
 

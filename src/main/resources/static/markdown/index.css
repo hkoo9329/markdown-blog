@@ -9,7 +9,9 @@
     overflow: auto;
     font-size: 12px;
 }
-
+#out.active{
+    width: 100%;
+}
 #out{
     float: left;
     padding-left: 10px;
