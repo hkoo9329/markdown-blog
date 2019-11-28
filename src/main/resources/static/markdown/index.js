@@ -225,6 +225,10 @@ function processQueryParams() {
         }
     }
 }
+function readMode() {
+    $('#in').toggle('slow');
+    $('#out').toggleClass("active");
+}
 
 function start() {
     update(editor);

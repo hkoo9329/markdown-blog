@@ -9,8 +9,10 @@
     overflow: auto;
     font-size: 12px;
 }
-
-#out {
+#out.active{
+    width: 100%;
+}
+#out{
     float: left;
     padding-left: 10px;
     padding-right: 10px;
@@ -21,6 +23,7 @@
     overflow: auto;
     background-color: white;
 }
+
 
 .emoji {
     width: 1em;
