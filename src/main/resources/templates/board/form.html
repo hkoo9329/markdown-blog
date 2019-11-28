@@ -10,6 +10,14 @@
     <link rel="stylesheet" th:href="@{/markdown/lib/github-markdown.css}">
     <link rel="stylesheet" th:href="@{/markdown/lib/sweetalert.css}">
 </head>
+<style>
+    #out.active{
+        width: 100%;
+    }
+    #out.disabled{
+        width: 50%;
+    }
+</style>
 <body>
 
 <div class="container">
@@ -91,11 +99,8 @@
     });
 
     $('#readMode').click(function () {
-        $('#in').toggle(function () {
-            $('#out').css({width:"1000px"});
-        }, function () {
-            $('#out').css({width: "50%"});
-        });
+        $('#in').toggle('slow');
+        $('#out').toggleClass("active");
     });
 
 

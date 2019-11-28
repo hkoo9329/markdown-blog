@@ -15,7 +15,7 @@
     padding-left: 10px;
     padding-right: 10px;
     margin-top: 5px;
-    width: 100%;
+    width: 50%;
     vertical-align: top;
     word-break: break-all; /* 창밖으로 글자가 나가지 않도록 하는 설정 */
     overflow: auto;
