@@ -34,7 +34,7 @@
         <!-- board가 생성된적이 없을때만 보이도록 설정 -->
         <button th:if="!${board?.idx}" type="button" class="btn btn-primary" id="insert">저장</button>
 
-        <div th:if="${board?.user?.idx} == ${user?.idx}">
+        <div th:if="${board?.user?.idx} == ${user?.idx}" style="display: inline-block;">
             <button type="button" class="btn btn-primary" id="readMode">읽기 모드</button>
             <button th:if="${board?.idx}" type="button" class="btn btn-info" id="update">수정</button>
             <button th:if="${board?.idx}" type="button" class="btn btn-danger" id="delete">삭제</button>
@@ -45,6 +45,8 @@
     </div>
 </div>
 <div>
+    <h1 id="read_title" style="margin-left: 10%;"></h1>
+    <hr/>
     <div id="in">
         <form><textarea id="code" class="col-md-1 form-control input-sm" th:text="${board?.content}"></textarea></form>
     </div>
@@ -77,14 +79,12 @@
 <script>
     var user_idx = $('#user_idx').val();
 
-    $('#codes').on('keydown keyup', function () {
-        $(this).height(1).height($(this).prop('scrollHeight') + 12);
-    });
-
     $(document).ready(function () {
         if ((login_user != editor_user) && editor_user != null) {
             $('#in').hide();
             $('#out').addClass("active");
+            $('#board_title').hide();
+            $('#read_title').text($('#board_title').val());
         }
         editor.setValue(editor.getValue());
     });
@@ -92,7 +92,6 @@
     $('#readMode').click(function () {
         readMode();
     });
-
 
 </script>
 <script th:if="!${board?.idx}">
