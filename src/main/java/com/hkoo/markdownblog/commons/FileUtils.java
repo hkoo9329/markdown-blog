@@ -1,11 +1,7 @@
 package com.hkoo.markdownblog.commons;
 
-import com.hkoo.markdownblog.domain.Board;
 import com.hkoo.markdownblog.domain.Thumbnail;
-import com.hkoo.markdownblog.repository.BoardRepository;
-import com.hkoo.markdownblog.repository.ThumbnailRepository;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.util.ObjectUtils;
 import org.springframework.web.multipart.MultipartFile;
