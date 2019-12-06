@@ -18,15 +18,10 @@ public class HomeController {
     private BoardService boardService;
 
     @RequestMapping({"/","/home"})
-    public String tset(@PageableDefault Pageable pageable, @AuthenticationPrincipal User formUser, @Socialuser User socialUser, Model model){
+    public String homePage(@PageableDefault Pageable pageable, @AuthenticationPrincipal User formUser, @Socialuser User socialUser, Model model){
         User user = formUser != null ? formUser : socialUser;
         model.addAttribute("user",user);
         model.addAttribute("boardList", boardService.findBoardList(pageable));
         return "home";
-    }
-
-    @RequestMapping("/test/side")
-    public String sidebarTest(){
-        return "layout/test_sidebar";
     }
 }
