@@ -78,6 +78,7 @@ public class BoardServiceImp implements BoardService {
             pageable = PageRequest.of(pageable.getPageNumber() <= 0 ? 0 : pageable.getPageNumber() - 1,
                     pageable.getPageSize(), Sort.by(Sort.Direction.DESC, "idx"));
         }
+
         return boardRepository.findAll(pageable);
     }
 
