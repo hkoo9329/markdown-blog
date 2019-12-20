@@ -3,6 +3,7 @@
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
     <title>게시판</title>
+    <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
     <link rel="stylesheet" th:href="@{https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css}"/>
     <link rel="stylesheet" th:href="@{/markdown/lib/base16-light.css}">
     <link rel="stylesheet" th:href="@{/markdown/codemirror/lib/codemirror.css}">
@@ -11,7 +12,7 @@
     <link rel="stylesheet" th:href="@{/markdown/lib/sweetalert.css}">
 </head>
 <body>
-
+<a href="#"></a>
 <div class="container">
     <div class="pull-right">
     </div>
@@ -37,8 +38,13 @@
             <button th:if="${board?.idx}" type="button" class="btn btn-danger" id="delete">삭제</button>
         </div>
     </div>
+    <br/>
     <div>
-        <input id="board_title" type="text" class="col-md-1 form-control input-sm" th:value="${board?.title}"/>
+<!--        <select class="col-md-4 custom-select">-->
+<!--            <option>잡담</option>-->
+<!--            <option>프로그래밍</option>-->
+<!--        </select>-->
+        <input id="board_title" type="text" class="form-control input-sm" th:value="${board?.title}"/>
     </div>
 </div>
 <div>

@@ -56,6 +56,10 @@ public class BoardServiceImp implements BoardService {
                 persistBoard.setThumbnail(thumbnail);
             }
         }
+        // 게시글이 다른 분류일 경우 새롭게 생성일자를 업데이트
+        if (!persistBoard.getBoardType().equals(newBoard.getBoardType())){
+            persistBoard.setCreatedDateNow();
+        }
         persistBoard.update(newBoard);
         persistBoard.updateDateTime();
         boardRepository.save(persistBoard);

@@ -1,6 +1,7 @@
 package com.hkoo.markdownblog.controller.api;
 
 import com.hkoo.markdownblog.domain.Board;
+import com.hkoo.markdownblog.domain.enums.BoardType;
 import com.hkoo.markdownblog.repository.BoardRepository;
 import com.hkoo.markdownblog.repository.ThumbnailRepository;
 import com.hkoo.markdownblog.repository.UserRepository;
@@ -55,10 +56,12 @@ public class BoardApiController {
     public ResponseEntity<?> postBoard(@RequestParam(value = "title") String title,
                                        @RequestParam(value = "content") String content,
                                        @RequestParam(value = "user") String userIdx,
+                                       @RequestParam(value = "boardType") String boardType,
                                        @RequestParam(value = "thumbnail") MultipartFile multipartFile) throws Exception {
         Board board = Board.builder()
                 .title(title)
                 .content(content)
+                .boardType(BoardType.valueOf(boardType))
                 .user(userRepository.getOne(Long.valueOf(userIdx)))
                 .build();
         boardService.insertBoard(board,multipartFile);
@@ -69,11 +72,13 @@ public class BoardApiController {
     public ResponseEntity<?> updateBoard(@PathVariable("idx") Long idx,
                                          @RequestParam(value = "title") String title,
                                          @RequestParam(value = "content") String content,
+                                         @RequestParam(value = "boardType") String boardType,
                                          @RequestParam(value = "thumbnail") MultipartFile multipartFile) throws Exception {
         Board persistBoard = boardRepository.getOne(idx);
         Board board = Board.builder()
                 .title(title)
                 .content(content)
+                .boardType(BoardType.valueOf(boardType))
                 .build();
        boardService.updateBoard(persistBoard,board,multipartFile);
         return new ResponseEntity<>("{}", HttpStatus.OK);

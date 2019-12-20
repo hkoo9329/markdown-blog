@@ -1,6 +1,7 @@
 package com.hkoo.markdownblog.domain;
 
 
+import com.hkoo.markdownblog.domain.enums.BoardType;
 import lombok.Builder;
 import lombok.Data;
 import lombok.Getter;
@@ -24,6 +25,10 @@ public class Board{
     private Long idx;
 
     @Column
+    @Enumerated(EnumType.STRING)
+    private BoardType boardType;
+
+    @Column
     private String title;
 
     @Column(columnDefinition = "TEXT")
@@ -43,12 +48,14 @@ public class Board{
 
     @Builder
     public Board(String title, String content, LocalDateTime createdDate,
-                 LocalDateTime updatedDate, User user, Thumbnail thumbnail) throws IOException {
+                 LocalDateTime updatedDate, User user, Thumbnail thumbnail,
+                 BoardType boardType) throws IOException {
         this.title = title;
         this.content = content;
         this.createdDate = createdDate;
         this.updatedDate = updatedDate;
         this.user = user;
+        this.boardType = boardType;
         this.thumbnail = thumbnail;
     }
 
@@ -63,5 +70,6 @@ public class Board{
     public void update(Board board) {
         this.title = board.title;
         this.content = board.content;
+        this.boardType = board.boardType;
     }
 }
