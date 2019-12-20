@@ -14,13 +14,17 @@ import java.time.format.DateTimeFormatter;
 @Slf4j
 @Component
 public class FileUtils {
-    @Value("${upload.location}")
+    @Value("${upload.location.prefix}")
     private String PREFIX;
+
+    @Value("${upload.location.suffix}")
+    private String SUFFIX;
+
 
     public Thumbnail parseFileInfo(Long boardIdx, MultipartFile multipartFile)throws Exception{
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyyMMdd");
         ZonedDateTime current = ZonedDateTime.now();
-        String path = PREFIX+current.format(formatter);
+        String path = PREFIX+SUFFIX+current.format(formatter);
         File file = new File(path);
         if (file.exists() == false){
             file.mkdirs();
@@ -47,7 +51,7 @@ public class FileUtils {
                     .board_idx(boardIdx)
                     .fileSize(multipartFile.getSize())
                     .originalFileName(multipartFile.getOriginalFilename())
-                    .storedFilePath(path + "/" + newFileName)
+                    .storedFilePath(path.replace(PREFIX,"") + "/" + newFileName)
                     .build();
             file = new File(path + "/" + newFileName);
             multipartFile.transferTo(file);

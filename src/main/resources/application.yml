@@ -40,4 +40,6 @@ custom:
 
 
 upload:
-  location: /home/tyrfingr12/src/board/images/thumbnail/
+  location:
+    prefix: /home/tyrfingr12/src/board/
+    suffix: images/thumbnail/
