@@ -1,16 +1,8 @@
 # markdown을 활용한 포스팅 블로그
 markdown을 활용한 포스팅 블로그 입니다.
-http://34.85.3.121:8080/ -> 이 주소로 markdown-blog 접속 가능
-
-
-
-## 추가 사항
-- sidebar 추가
-- GCP로 배포, CI 구축
-- 읽기 모드 추가
+http://ithkoo.com:8080 -> 이 주소로 markdown-blog 접속 가능
 
 ## 추가 예정  
-- 읽기 모드 경우에 더 적합하게 ui 개선
 - 포스팅 탐색 기능 추가
 - 댓글 기능
 
