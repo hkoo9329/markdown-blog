@@ -3,6 +3,7 @@ package com.hkoo.markdownblog.service;
 import com.hkoo.markdownblog.commons.FileUtils;
 import com.hkoo.markdownblog.domain.Board;
 import com.hkoo.markdownblog.domain.Thumbnail;
+import com.hkoo.markdownblog.domain.enums.BoardType;
 import com.hkoo.markdownblog.repository.BoardRepository;
 import com.hkoo.markdownblog.repository.ThumbnailRepository;
 import lombok.extern.slf4j.Slf4j;
@@ -77,13 +78,12 @@ public class BoardServiceImp implements BoardService {
 
 
     @Override
-    public Page<Board> findBoardList(Pageable pageable) {
+    public Page<Board> findBoardList(Pageable pageable ,String boardType) {
         if (pageable.getSort().isUnsorted()) {
             pageable = PageRequest.of(pageable.getPageNumber() <= 0 ? 0 : pageable.getPageNumber() - 1,
                     pageable.getPageSize(), Sort.by(Sort.Direction.DESC, "idx"));
         }
-
-        return boardRepository.findAll(pageable);
+        return boardRepository.findAllByBoardType(BoardType.valueOf(boardType),pageable);
     }
 
     @Override

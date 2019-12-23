@@ -37,3 +37,9 @@ custom:
     naver:
       client-id: HylBNrnld2nVNQPLdZ6V
       client-secret: GgJ8FmAMz5
+
+
+upload:
+  location:
+    prefix: /home/tyrfingr12/src/board/
+    suffix: images/thumbnail/

@@ -41,16 +41,7 @@ public class BoardApiController {
     private BoardService boardService;
 
 
-    @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<?> getBoards(@PageableDefault Pageable pageable) {
-        Page<Board> boards = boardRepository.findAll(pageable);
-        PageMetadata pageMetadata = new PageMetadata(pageable.getPageSize(),
-                boards.getNumber(), boards.getTotalElements());
-        PagedResources<Board> resources = new PagedResources<>(boards.getContent(), pageMetadata);
-        resources.add(linkTo(methodOn(BoardApiController.class)
-                .getBoards(pageable)).withSelfRel());
-        return ResponseEntity.ok(resources);
-    }
+
 
     @PostMapping
     public ResponseEntity<?> postBoard(@RequestParam(value = "title") String title,

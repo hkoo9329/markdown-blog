@@ -2,6 +2,7 @@ package com.hkoo.markdownblog.commons;
 
 import com.hkoo.markdownblog.domain.Thumbnail;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 import org.springframework.util.ObjectUtils;
 import org.springframework.web.multipart.MultipartFile;
@@ -13,12 +14,17 @@ import java.time.format.DateTimeFormatter;
 @Slf4j
 @Component
 public class FileUtils {
-    private final String PREFIX =  "src/main/resources/static/";
+    @Value("${upload.location.prefix}")
+    private String PREFIX;
+
+    @Value("${upload.location.suffix}")
+    private String SUFFIX;
+
 
     public Thumbnail parseFileInfo(Long boardIdx, MultipartFile multipartFile)throws Exception{
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyyMMdd");
         ZonedDateTime current = ZonedDateTime.now();
-        String path = "src/main/resources/static/images/thumbnail/"+current.format(formatter);
+        String path = PREFIX+SUFFIX+current.format(formatter);
         File file = new File(path);
         if (file.exists() == false){
             file.mkdirs();
@@ -45,7 +51,7 @@ public class FileUtils {
                     .board_idx(boardIdx)
                     .fileSize(multipartFile.getSize())
                     .originalFileName(multipartFile.getOriginalFilename())
-                    .storedFilePath(path + "/" + newFileName)
+                    .storedFilePath(path.replace(PREFIX,"") + "/" + newFileName)
                     .build();
             file = new File(path + "/" + newFileName);
             multipartFile.transferTo(file);
