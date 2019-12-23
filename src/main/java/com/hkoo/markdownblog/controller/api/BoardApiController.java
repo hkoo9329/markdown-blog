@@ -41,8 +41,6 @@ public class BoardApiController {
     private BoardService boardService;
 
 
-
-
     @PostMapping
     public ResponseEntity<?> postBoard(@RequestParam(value = "title") String title,
                                        @RequestParam(value = "content") String content,
