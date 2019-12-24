@@ -30,12 +30,4 @@ public class BoardController {
         model.addAttribute("board", boardService.findBoardByIdx(idx));
         return "board/form";
     }
-
-    @GetMapping("/list")
-    public String list(@PageableDefault Pageable pageable, @AuthenticationPrincipal User formUser, @Socialuser User socialUser, Model model) {
-        User user = formUser != null ? formUser : socialUser;
-        model.addAttribute("user",user);
-        model.addAttribute("boardList", boardService.findBoardList(pageable));
-        return "board/list";
-    }
 }

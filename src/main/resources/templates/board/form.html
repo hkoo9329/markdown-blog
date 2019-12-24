@@ -3,6 +3,7 @@
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
     <title>게시판</title>
+    <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
     <link rel="stylesheet" th:href="@{https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css}"/>
     <link rel="stylesheet" th:href="@{/markdown/lib/base16-light.css}">
     <link rel="stylesheet" th:href="@{/markdown/codemirror/lib/codemirror.css}">
@@ -11,11 +12,7 @@
     <link rel="stylesheet" th:href="@{/markdown/lib/sweetalert.css}">
 </head>
 <body>
-
 <div class="container">
-    <div class="pull-right">
-    </div>
-    <br/>
     <input id="user_idx" type="hidden" th:value="${user?.idx}"/>
     <input id="board_idx" type="hidden" th:value="${board?.idx}"/>
     <div class="pull-left">
@@ -37,8 +34,14 @@
             <button th:if="${board?.idx}" type="button" class="btn btn-danger" id="delete">삭제</button>
         </div>
     </div>
-    <div>
-        <input id="board_title" type="text" class="col-md-1 form-control input-sm" th:value="${board?.title}"/>
+    <br/><br/>
+    <div class="row container-fluid">
+        <select id="board_select" class="custom-select">
+            <option value="notice">공지사항</option>
+            <option value="free" selected="selected">잡담</option>
+            <option value="coding">프로그래밍</option>
+        </select>
+        <input id="board_title" type="text" class="form-control input-sm" th:value="${board?.title}"/>
     </div>
 </div>
 <div>
@@ -51,6 +54,9 @@
 
 </div>
 <script th:src="@{/js/jquery.min.js}"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
+        integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
+        crossorigin="anonymous"></script>
 <script th:src="@{/markdown/lib/markdown-it.js}"></script>
 <script th:src="@{/markdown/lib/markdown-it-footnote.js}"></script>
 <script th:src="@{/markdown/lib/highlight.pack.js}"></script>
@@ -96,14 +102,10 @@
     $('#insert').click(function () {
         var form = $('#formData')[0];
         var formData = new FormData(form);
-        // var jsonData = JSON.stringify({
-        //     title: $('#board_title').val(),
-        //     content: editor.getValue(),
-        //     user: $('#user_idx').val()
-        // });
         formData.append("title", $('#board_title').val());
         formData.append("content", editor.getValue());
         formData.append("user", $('#user_idx').val());
+        formData.append("boardType", $('#board_select option:selected').val());
         $.ajax({
             url: '/api/boards',
             type: 'POST',
@@ -129,10 +131,7 @@
         formData.append("title", $('#board_title').val());
         formData.append("content", editor.getValue());
         formData.append("user", $('#user_idx').val());
-        // var jsonData = JSON.stringify({
-        //     title: $('#board_title').val(),
-        //     content: editor.getValue()
-        // });
+        formData.append("boardType", $('#board_select option:selected').val());
         $.ajax({
             url: '/api/boards/update/' + $('#board_idx').val(),
             type: 'POST',

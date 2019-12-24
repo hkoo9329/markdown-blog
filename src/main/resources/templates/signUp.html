@@ -3,43 +3,155 @@
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
     <title>login</title>
+    <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
     <link rel="stylesheet" th:href="@{/css/base.css}"/>
-    <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
 </head>
+<style>
+    .register {
+        background: -webkit-linear-gradient(left, #585858, #A4A4A4);
+        margin-top: 3%;
+        padding: 3%;
+    }
+
+    .register-left {
+        text-align: center;
+        color: #fff;
+        margin-top: 4%;
+    }
+
+    .register-left input {
+        border: none;
+        border-radius: 1.5rem;
+        padding: 2%;
+        width: 60%;
+        background: #f8f9fa;
+        font-weight: bold;
+        color: #383d41;
+        margin-top: 30%;
+        margin-bottom: 3%;
+        cursor: pointer;
+    }
+
+    .register-right {
+        background: #f8f9fa;
+        border-top-left-radius: 10% 50%;
+        border-bottom-left-radius: 10% 50%;
+    }
+
+    .register-left img {
+        margin-top: 15%;
+        margin-bottom: 5%;
+        width: 25%;
+        -webkit-animation: mover 2s infinite alternate;
+        animation: mover 1s infinite alternate;
+    }
+
+    @-webkit-keyframes mover {
+        0% {
+            transform: translateY(0);
+        }
+        100% {
+            transform: translateY(-20px);
+        }
+    }
+
+    @keyframes mover {
+        0% {
+            transform: translateY(0);
+        }
+        100% {
+            transform: translateY(-20px);
+        }
+    }
+
+    .register-left p {
+        font-weight: lighter;
+        padding: 12%;
+        margin-top: -9%;
+    }
+
+    .register .register-form {
+        padding: 10%;
+        margin-top: 10%;
+    }
+
+    .btnRegister {
+        float: right;
+        margin-top: 10%;
+        border: none;
+        border-radius: 1.5rem;
+        padding: 2%;
+        background: #2E2E2E;
+        color: #fff;
+        font-weight: 600;
+        width: 50%;
+        cursor: pointer;
+    }
+
+    .register-heading {
+        text-align: center;
+        margin-top: 8%;
+        margin-bottom: -15%;
+        color: #495057;
+    }
+</style>
 <body>
-<div class="container" style="text-align: center; width: 50%">
-    <h2>회원가입</h2>
-    <br/>
-    <form>
-        <div>
-            <span>이메일 : </span>
-            <input id="insert_email" type="text" placeholder="이메일을 입력해주세요."/>
-            <span id="email_error_message"></span>
+<div class="container register">
+    <div class="row">
+        <div class="col-md-3 register-left">
+            <img th:src="@{/images/logo.png}" alt=""/>
+            <h3>회원가입</h3>
+            <p>아주 간단한 회원가입으로 markdown 블로그를 이용해보세요 :)</p>
+            <input type="button" value="Login" onclick="location.href='/login'"/><br/>
         </div>
-        <div>
-            <span>비밀번호 : </span>
-            <input id="insert_password" type="password" placeholder="6~12자리 그리고 영문숫자의 조합으로 입력해주세요."/>
-            <span id="password_error_message"></span>
+        <div class="col-md-9 register-right">
+            <div class="tab-content" id="myTabContent">
+                <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
+                    <h3 class="register-heading">Markdown blog</h3>
+                    <div class="row register-form">
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <input id="nickname" type="text" class="form-control" placeholder="닉네임 *" value=""/>
+                                <p id="nickname_error_message"></p>
+                            </div>
+                            <div class="form-group">
+                                <input id="email" type="email" class="form-control" placeholder="이메일 *" value=""/>
+                                <p id="email_error_message"></p>
+                            </div>
+                            <div class="form-group">
+                                <input id="pwd" type="password" class="form-control" placeholder="비밀번호 *" value=""/>
+                                <p id="password_error_message"></p>
+                            </div>
+                            <div class="form-group">
+                                <input id="pwd_check" type="password" class="form-control" placeholder="비밀번호 확인 *"
+                                       value=""/>
+                                <p id="password_match_error"></p>
+                            </div>
+                        </div>
+                        <div class="col-md-8">
+                            <input id="submit_signup" type="submit" class="btnRegister" value="SignUp"/>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
-        <div>
-            <span>닉네임 : </span>
-            <input id="insert_nickname" type="text" placeholder="닉네임을 입력해주세요."/>
-            <span id="nickname_error_message"></span>
-        </div>
-    </form>
-    <div class="btn-primary" id="submit_signup">SignUp</div>
+    </div>
+
 </div>
 
+
 <script th:src="@{/js/jquery.min.js}"></script>
+<script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
 <script>
     var email_checker = false;
     var pwd_checker = false;
     var nick_checker = false;
+    var pwd_match_checker = false;
     $('#submit_signup').click(function () {
         var singUpData = {
-            "email": $('#insert_email').val(),
-            "password": $('#insert_password').val(),
-            "name": $('#insert_nickname').val()
+            "email": $('#email').val(),
+            "password": $('#pwd').val(),
+            "name": $('#nickname').val()
         }
         if (!nick_checker) {
             alert("닉네임을 다시 설정해주세요.");
@@ -65,7 +177,7 @@
 
     });
     // 아이디 유효성 검사
-    $("#insert_email").focusout(function () {
+    $("#email").focusout(function () {
         var id_text = $(this).val();
         console.log(id_text);
         var userData = {"id": id_text};
@@ -75,13 +187,13 @@
             data: {"id": id_text},
             success: function (data) {
                 if (!data) {
-                    $('#email_error_message').text("이메일이 존재합니다.").css("color", "red");
+                    $('#email_error_message').text("이메일이 존재합니다.").css("color", "#FC4E51");
                     email_checker = false;
                 } else if (!checkEmail(id_text)) {
-                    $('#email_error_message').text("이메일이 형식이 올바르지 않습니다.").css("color", "red");
+                    $('#email_error_message').text("이메일이 형식이 올바르지 않습니다.").css("color", "#FC4E51");
                     email_checker = false;
                 } else {
-                    $('#email_error_message').text("사용가능한 이메일 입니다.").css("color", "blue");
+                    $('#email_error_message').text("사용가능한 이메일 입니다.").css("color", "#3F48FB");
                     email_checker = true;
                 }
             },
@@ -91,25 +203,36 @@
         });
     });
     // 닉네임 길이 휴효성 검사
-    $('#insert_nickname').focusout(function () {
+    $('#nickname').focusout(function () {
         var nickname = $(this).val();
         if (nickname.length > 20 || nickname.length < 2) {
-            $('#nickname_error_message').text("닉네임은 2자에서 20자 사이 입니다.").css("color", "red");
+            $('#nickname_error_message').text("닉네임은 2자에서 20자 사이 입니다.").css("color", "#FC4E51");
             nick_checker = false;
         } else {
-            $('#nickname_error_message').text("사용가능한 닉네임 입니다.").css("color", "blue");
+            $('#nickname_error_message').text("사용가능한 닉네임 입니다.").css("color", "#3F48FB");
             nick_checker = true;
         }
     });
     // 비밀번호 유효성 검사
     var checker = false;
-    $('#insert_password').focusout(function () {
+    $('#pwd').focusout(function () {
         if (!checkpassword($(this).val())) {
-            $('#password_error_message').text("비밀번호는 숫자 영문 포함 6~12자리입니다.").css("color", "red");
+            $('#password_error_message').text("비밀번호는 숫자 영문 포함 6~12자리입니다.").css("color", "#FC4E51");
             pwd_checker = false;
         } else {
-            $('#password_error_message').text("사용가능한 비밀번호 입니다.").css("color", "blue");
+            $('#password_error_message').text("사용가능한 비밀번호 입니다.").css("color", "#3F48FB");
             pwd_checker = true;
+        }
+    });
+
+    // 비밀번호 일치 검사
+    $('#pwd_check').focusout(function () {
+        if (pwd_match()) {
+            $('#password_match_error').text("");
+            pwd_match_checker = true;
+        } else {
+            $('#password_match_error').text("비밀번호가 일치하지 않습니다. 확인해 주세요").css("color", "#FC4E51");
+            pwd_match_checker = false;
         }
     });
 
@@ -124,7 +247,7 @@
         }
     }
 
-    // 비밍번호 규칙 정규식 검사
+    // 비밀번호 규칙 정규식 검사
     function checkpassword(password) {
         var regex = /^[A-Za-z0-9]{6,12}$/;
         if (!regex.test(password)) {
@@ -133,6 +256,11 @@
         } else {
             return true;
         }
+    }
+
+    //비밀번호 일치 검사
+    function pwd_match() {
+        return $('#pwd').val() == $('#pwd_check').val() ? true : false;
     }
 
 </script>

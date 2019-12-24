@@ -9,6 +9,6 @@ public interface BoardService {
     void insertBoard(Board board, MultipartFile multipartFile) throws Exception;
     void updateBoard(Board persistBoard, Board newBoard, MultipartFile multipartFile) throws Exception;
     void deleteBoard(Board board) throws Exception;
-    Page<Board> findBoardList(Pageable pageable);
+    Page<Board> findBoardList(Pageable pageable, String boardType);
     Board findBoardByIdx(Long idx);
 }

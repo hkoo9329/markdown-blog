@@ -23,18 +23,18 @@
         <div class="container-fluid">
             <div class="navbar-btn">
                 <button type="button" class="btn-toggle-fullwidth">
-<!--                    <i class="lnr lnr-arrow-left-circle"></i>-->
                     <i id="arrow-circle-left" class="fa fa-arrow-circle-left"></i>
                 </button>
             </div>
-            <form class="navbar-form navbar-left">
-                <div class="input-group">
-                    <input type="text" value="" class="form-control" placeholder="Search dashboard...">
-                    <span class="input-group-btn">
-                            <button type="button" class="btn btn-primary">GO</button>
-                        </span>
-                </div>
-            </form>
+            <!-- search form -->
+            <!--            <form class="navbar-form navbar-left">-->
+            <!--                <div class="input-group">-->
+            <!--                    <input type="text" value="" class="form-control" placeholder="Search dashboard...">-->
+            <!--                    <span class="input-group-btn">-->
+            <!--                            <button type="button" class="btn btn-primary">GO</button>-->
+            <!--                        </span>-->
+            <!--                </div>-->
+            <!--            </form>-->
 
             <div id="navbar-menu">
                 <ul class="nav navbar-nav navbar-right">
@@ -43,8 +43,8 @@
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                             <img th:src="@{/images/temp_user.jpg}" class="img-circle" alt="AVatar">
                             <span th:text="${user?.name}"></span>
-<!--                            임시 아이콘-->
-<!--                            <i class="icon-submenu lnr lnr-chevron-down"></i>-->
+                            <!--                            임시 아이콘-->
+                            <!--                            <i class="icon-submenu lnr lnr-chevron-down"></i>-->
                         </a>
                         <ul class="dropdown-menu">
                             <li><a th:href="@{/board/page}"><i class="lnr lnr-exit"></i> <span>글쓰기</span></a></li>
@@ -69,15 +69,16 @@
             <nav>
                 <ul class="nav">
                     <li><a href="/" class=""><i class="lnr lnr-home"></i> <span>메인페이지</span></a></li>
-                    <li><a href="#" class=""><i class="lnr lnr-code"></i> <span>잡동사니</span></a></li>
+                    <li><a href="#" class=""><i class="lnr lnr-code"></i> <span>채팅(준비중)</span></a></li>
                     <li>
                         <a href="#subPages" data-toggle="collapse" class="collapsed"><i
                                 class="lnr lnr-file-empty"></i><span>게시글</span><i
                                 class="icon-submenu lnr lnr-chevron-left"></i></a>
                         <div id="subPages" class="collapse">
                             <ul class="nav">
-                                <li><a th:href="@{/board/list}" class="">자유게시판</a></li>
-                                <li><a th:href="@{/login}" class="">로그아웃</a></li>
+                                <li><a th:href="@{/home/notice}" class="">공지사항</a></li>
+                                <li><a th:href="@{/home/free}" class="">잡담</a></li>
+                                <li><a th:href="@{/home/coding}" class="">프로그래밍</a></li>
                             </ul>
                         </div>
                     </li>
