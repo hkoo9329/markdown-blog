@@ -102,11 +102,6 @@
     $('#insert').click(function () {
         var form = $('#formData')[0];
         var formData = new FormData(form);
-        // var jsonData = JSON.stringify({
-        //     title: $('#board_title').val(),
-        //     content: editor.getValue(),
-        //     user: $('#user_idx').val()
-        // });
         formData.append("title", $('#board_title').val());
         formData.append("content", editor.getValue());
         formData.append("user", $('#user_idx').val());
