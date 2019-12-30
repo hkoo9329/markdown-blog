@@ -93,6 +93,7 @@
         }
         editor.setValue(editor.getValue());
         // 이전 boardType으로 변경
+        $('#board_select option[value='+boardType+']').attr('selected','selected');
     });
 
     $('#readMode').click(function () {
