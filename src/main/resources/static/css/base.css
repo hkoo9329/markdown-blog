@@ -5,13 +5,15 @@ body{
 }
 
 #title{
-    font-size: x-large;
+    font-size: large;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    width: 100%;
     font-family: "나눔고딕 ExtraBold";
 }
 #date{
     font-size: small;
     color: gray;
 }
-#posting_box{
-    padding: 10px;
-}
+
