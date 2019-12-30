@@ -78,11 +78,13 @@
 <script th:inline="javascript">
     var login_user = [[${user?.idx}]];
     var editor_user = [[${board?.user?.idx}]];
+    var boardType = [[${board?.boardType}]];
 </script>
 <script>
     var user_idx = $('#user_idx').val();
 
     $(document).ready(function () {
+        $('#board_select option:contains(boardType)').prop('selected','selected');
         if ((login_user != editor_user) && editor_user != null) {
             $('#in').hide();
             $('#out').addClass("active");
@@ -90,6 +92,7 @@
             $('#read_title').text($('#board_title').val());
         }
         editor.setValue(editor.getValue());
+        // 이전 boardType으로 변경
     });
 
     $('#readMode').click(function () {
@@ -116,7 +119,7 @@
             cache: false,
             success: function () {
                 alert('저장되었습니다.');
-                window.location.replace("/home");
+                window.location.replace("/home/"+$('#board_select option:selected').val());
             },
             error: function () {
                 alert('저장 실패');
@@ -155,7 +158,7 @@
             type: 'DELETE',
             success: function () {
                 alert('삭제되었습니다.');
-                window.location.replace("/home");
+                window.location.replace("/home"+$('#board_select option:selected').val());
             },
             error: function () {
                 alert('삭제 실패');
@@ -163,6 +166,5 @@
         });
     });
 </script>
-
 </body>
 </html>
