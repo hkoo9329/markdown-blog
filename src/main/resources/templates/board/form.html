@@ -145,7 +145,7 @@
             cache: false,
             success: function () {
                 alert('수정 되었습니다.');
-                window.location.replace("/home");
+                window.location.replace("/home/"+$('#board_select option:selected').val());
             },
             error: function () {
                 alert('수정 실패');
@@ -158,7 +158,7 @@
             type: 'DELETE',
             success: function () {
                 alert('삭제되었습니다.');
-                window.location.replace("/home"+$('#board_select option:selected').val());
+                window.location.replace("/home");
             },
             error: function () {
                 alert('삭제 실패');
