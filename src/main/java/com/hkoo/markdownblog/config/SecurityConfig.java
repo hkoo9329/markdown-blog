@@ -40,7 +40,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
         CharacterEncodingFilter filter = new CharacterEncodingFilter();
         http
                 .authorizeRequests()
-                .antMatchers("/", "/oauth2/**", "/login/**", "/css/**", "/images/**", "/js/**",
+                .antMatchers("/","/home/**", "/oauth2/**", "/login/**", "/css/**", "/images/**", "/js/**",
                         "/console/**","/loginFailure","/signUp","/sidebar/**","/src/**").permitAll()
                 .antMatchers("/api/**").permitAll()// api 접근은 모두 허용
                 .antMatchers("/google").hasAuthority(GOOGLE.getRoleType())
