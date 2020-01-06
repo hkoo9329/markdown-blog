@@ -68,12 +68,13 @@
         <div class="sidebar-scroll">
             <nav>
                 <ul class="nav">
-                    <li><a href="/" class=""><i class="lnr lnr-home"></i> <span>메인페이지</span></a></li>
-                    <li><a href="#" class=""><i class="lnr lnr-code"></i> <span>채팅(준비중)</span></a></li>
+                    <li><a href="/" class=""><i class="fa fa-home"></i> <span>메인페이지</span></a></li>
+                    <li><a href="#" class=""><i class="fa fa-comment-o"></i> <span>채팅(준비중)</span></a></li>
                     <li>
                         <a href="#subPages" data-toggle="collapse" class="collapsed"><i
-                                class="lnr lnr-file-empty"></i><span>게시글</span><i
-                                class="icon-submenu lnr lnr-chevron-left"></i></a>
+                                class="fa fa-clipboard"></i><span>게시글</span>
+                            <i class="fa fa-list" aria-hidden="true"></i>
+                        </a>
                         <div id="subPages" class="collapse">
                             <ul class="nav">
                                 <li><a th:href="@{/home/notice}" class="">공지사항</a></li>
