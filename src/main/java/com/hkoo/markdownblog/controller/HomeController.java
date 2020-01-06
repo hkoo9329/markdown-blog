@@ -2,6 +2,7 @@ package com.hkoo.markdownblog.controller;
 
 import com.hkoo.markdownblog.annotation.Socialuser;
 import com.hkoo.markdownblog.domain.User;
+import com.hkoo.markdownblog.domain.enums.BoardType;
 import com.hkoo.markdownblog.service.BoardService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,6 +26,7 @@ public class HomeController {
                            @Socialuser User socialUser, Model model){
         User user = formUser != null ? formUser : socialUser;
         model.addAttribute("user",user);
+        model.addAttribute("boardTypeMessage",BoardType.notice.getValue());
         model.addAttribute("boardList", boardService.findBoardList(pageable, "notice"));
         return "home";
     }
@@ -33,6 +35,7 @@ public class HomeController {
                            @Socialuser User socialUser, @PathVariable("boardtype") String boardType, Model model){
         User user = formUser != null ? formUser : socialUser;
         model.addAttribute("user",user);
+        model.addAttribute("boardTypeMessage", BoardType.valueOf(boardType).getValue());
         model.addAttribute("boardList", boardService.findBoardList(pageable, boardType));
         return "home";
     }
